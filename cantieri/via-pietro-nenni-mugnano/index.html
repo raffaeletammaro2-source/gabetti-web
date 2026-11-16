@@ -194,6 +194,8 @@ form.lead-form .hint{font-size:.88rem;color:var(--grey);margin-bottom:20px}
 .consent{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--grey);margin:6px 0 18px}
 .consent input{margin-top:3px;accent-color:var(--red);width:16px;height:16px;flex:none}
 form.lead-form .btn{width:100%}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-error{display:none;margin:0 0 14px;border-radius:10px;background:rgba(220,38,38,.1);padding:10px 12px;font-size:.88rem;font-weight:600;color:#B91C1C}
 form.lead-form .small{font-size:.8rem;color:var(--grey);text-align:center;margin-top:10px}
 .thanks{display:none;text-align:center;padding:24px 6px}
 .thanks .ok{width:64px;height:64px;border-radius:50%;background:rgba(31,175,90,.12);color:#1FAF5A;display:grid;place-items:center;margin:0 auto 16px}
@@ -494,7 +496,9 @@ footer .legal{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-
           </div>
         </div>
         <div class="field"><label for="citta">Città di residenza attuale</label><input id="citta" name="citta" autocomplete="address-level2"></div>
-        <label class="consent"><input type="checkbox" name="privacy" id="privacy" required><span>Ho letto l'<a href="#privacy">informativa privacy</a> e acconsento a essere ricontattato per ricevere informazioni su questo immobile. *</span></label>
+        <label class="consent"><input type="checkbox" name="privacy" id="privacy" required><span>Ho letto l'<a href="privacy.html" target="_blank" rel="noopener">informativa privacy</a> e acconsento a essere ricontattato per ricevere informazioni su questo immobile. *</span></label>
+        <div class="hp" aria-hidden="true"><label>Lascia vuoto <input name="sito_web" tabindex="-1" autocomplete="off"></label></div>
+        <p class="form-error" role="alert" id="formError"></p>
         <button class="btn btn-red" type="submit">Richiedi informazioni</button>
         <p class="small">Nessun impegno di acquisto.</p>
       </div>
@@ -571,7 +575,7 @@ footer .legal{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-
     </div>
     <div class="legal">
       <span>Nuove Costruzioni · Via Pietro Nenni, Mugnano di Napoli (NA) · Immagini e planimetrie a scopo illustrativo</span>
-      <span>© 2026 Gabetti Franchising — Agenzia di Mugnano · <a id="privacy" href="#">Informativa Privacy e GDPR</a></span>
+      <span>© 2026 Gabetti Franchising — Agenzia di Mugnano · <a href="privacy.html">Informativa Privacy e GDPR</a></span>
     </div>
   </div>
 </footer>
@@ -584,11 +588,27 @@ footer .legal{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-
 
 <script>
 /* ===== CONFIGURAZIONE =====
-   FORM_ENDPOINT: URL a cui inviare i lead in POST (JSON). Es. webhook Make/Zapier, CRM, Google Apps Script.
-   Se lasciato vuoto, al termine del form si apre WhatsApp con i dati già compilati. */
-const FORM_ENDPOINT = "";
+   I contatti vanno alla Netlify Function /.netlify/functions/lead, che li inoltra a GoHighLevel.
+   Il webhook di GoHighLevel NON è qui: è nella variabile d'ambiente GHL_WEBHOOK_URL su Netlify.
+   META_PIXEL_ID e GA4_ID: inserire gli ID per attivare il tracciamento (vuoti = disattivato). */
+const LEAD_ENDPOINT = "/.netlify/functions/lead";
+const PROGETTO = "Nuove Costruzioni Mugnano - Via Pietro Nenni";
+const FONTE = "Landing Via Pietro Nenni";
+const META_PIXEL_ID = "";
+const GA4_ID = "";
 const WA_NUMBER = "393512319735";
 const WA_TEXT = "Ciao, vorrei ricevere informazioni sulle nuove costruzioni in Via Pietro Nenni a Mugnano.";
+
+/* Tracciamento: si carica solo se gli ID sono impostati */
+if (META_PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', META_PIXEL_ID); fbq('track', 'PageView');
+}
+if (GA4_ID) {
+  const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID; document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); };
+  gtag('js', new Date()); gtag('config', GA4_ID);
+}
 
 document.querySelectorAll('.wa-link').forEach(a=>{
   a.href = "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(WA_TEXT);
@@ -600,28 +620,55 @@ document.querySelectorAll('[data-tipo]').forEach(b=>b.addEventListener('click',(
   const r = document.querySelector('input[name="tipologia"][value="'+v+'"]'); if(r) r.checked = true;
 }));
 
+/* Form contatti */
+const UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"];
+const params = new URLSearchParams(location.search);
 const form = document.getElementById('leadForm');
+const errBox = document.getElementById('formError');
+function showError(msg){ errBox.textContent = msg; errBox.style.display = 'block'; }
+function mark(el, bad){
+  const target = el.type==="checkbox" ? el.parentElement : el;
+  target.style.borderColor = bad ? "#B20933" : "";
+  if(el.type==="checkbox") target.style.color = bad ? "#B20933" : "";
+}
+
 form.addEventListener('submit', async e=>{
-  e.preventDefault();
-  let ok = true;
-  form.querySelectorAll('[required]').forEach(el=>{
-    const bad = el.type==="checkbox" ? !el.checked : !el.value.trim() || (el.type==="email" && !/^\S+@\S+\.\S+$/.test(el.value));
-    const target = el.type==="checkbox" ? el.parentElement : el;
-    target.style.borderColor = bad ? "#B20933" : "";
-    if(el.type==="checkbox") target.style.color = bad ? "#B20933" : "";
-    if(bad) ok = false;
-  });
-  if(!ok) return;
-  const data = Object.fromEntries(new FormData(form));
-  data.progetto = "Nuove Costruzioni Mugnano - Via Pietro Nenni";
-  data.pagina = location.href;
+  e.preventDefault(); errBox.style.display = 'none';
+  const fd = new FormData(form);
+  const nome = String(fd.get('nome')||'').trim();
+  const telefono = String(fd.get('telefono')||'').trim();
+  const email = String(fd.get('email')||'').trim();
+  const privacy = form.querySelector('#privacy');
+  const checks = [
+    [form.querySelector('#nome'), nome.length < 2 || nome.length > 100, "Inserisci nome e cognome."],
+    [form.querySelector('#tel'), !/^[+0-9 ().-]{6,25}$/.test(telefono), "Inserisci un numero di telefono valido."],
+    [form.querySelector('#email'), !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || email.length > 255, "Inserisci un indirizzo email valido."],
+    [privacy, !privacy.checked, "Devi accettare l'informativa privacy."]
+  ];
+  let firstErr = null;
+  checks.forEach(([el,bad,msg])=>{ mark(el,bad); if(bad && !firstErr) firstErr = msg; });
+  if(firstErr) return showError(firstErr);
+
+  const payload = {
+    nome, telefono, email,
+    citta: String(fd.get('citta')||'').trim().slice(0,100) || null,
+    tipologia: String(fd.get('tipologia')||'') || null,
+    privacy_consenso: true,
+    sito_web: String(fd.get('sito_web')||''),
+    progetto: PROGETTO, source: FONTE,
+    pagina: location.pathname
+  };
+  UTM_KEYS.forEach(k=>payload[k] = params.get(k));
+
   const btn = form.querySelector('button'); btn.disabled = true; btn.textContent = "Invio in corso…";
-  if(FORM_ENDPOINT){
-    try{ await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)}); }catch(err){}
-  }else{
-    const msg = `Richiesta info Nuove Costruzioni Via Pietro Nenni, Mugnano\nNome: ${data.nome}\nTel: ${data.telefono}\nEmail: ${data.email}\nTipologia: ${data.tipologia}\nCittà: ${data.citta||"-"}`;
-    window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(msg),"_blank");
-  }
+  let ok = false;
+  try{
+    const res = await fetch(LEAD_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    ok = res.ok;
+  }catch(err){ ok = false; }
+  btn.disabled = false; btn.textContent = "Richiedi informazioni";
+
+  if(!ok) return showError("Si è verificato un errore nell'invio. Riprova, chiamaci allo 081 586 7349 o scrivici su WhatsApp.");
   if(window.fbq) fbq('track','Lead');
   if(window.gtag) gtag('event','generate_lead');
   form.querySelector('.form-body').style.display="none";
