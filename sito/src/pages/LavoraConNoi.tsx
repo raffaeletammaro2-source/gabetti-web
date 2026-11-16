@@ -89,7 +89,7 @@ const LavoraConNoi = () => {
                 Candidati ora
               </a>
             </div>
-            <img src={teamImg} alt="Team di consulenti immobiliari Gabetti" className="rounded-lg w-full h-auto object-cover" width={1280} height={864} loading="lazy" />
+            <img src={teamImg} alt="Il team delle agenzie Gabetti Franchising dell'area nord di Napoli" className="rounded-lg w-full h-auto object-cover" width={1280} height={853} loading="lazy" />
           </div>
         </section>
 
