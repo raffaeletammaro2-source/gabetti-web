@@ -30,9 +30,9 @@ Un solo sito Netlify per tutto il repo, un solo dominio:
 ## Sito principale (`sito/`)
 - App React importata da Lovable: Netlify la costruisce a ogni push (`npm ci` + `npm run build` in `build.sh`).
 - **Da ora si modifica qui, non più su Lovable**: il repo `gabetti-adg` collegato a Lovable non viene più letto.
-- I dati (immobili, contatti, utenti admin, email) restano su **Supabase / Lovable Cloud**: il progetto Lovable non va eliminato.
-  Anche le funzioni in `sito/supabase/functions/` girano lì: modificarle qui non basta, vanno pubblicate su Supabase.
-- `sito/.env` contiene solo indirizzo e chiave pubblica di Supabase (sono comunque visibili nel sito pubblicato).
+- Dati e login admin su **Supabase, progetto `gabetti-adg`** (non più Lovable Cloud). Struttura: `sito/supabase/setup/01_schema.sql`.
+- I form del sito passano dalla funzione Netlify `sito-form` → GoHighLevel; le email partono dai workflow di GoHighLevel (testi in `docs/email-gohighlevel.md`).
+- `sito/.env` contiene solo indirizzo e chiave publishable di Supabase (sono comunque visibili nel sito pubblicato). Mai la chiave secret.
 - `netlify.toml` manda a `index.html` ogni indirizzo che non è un file vero (es. `/servizi`, `/immobile/...`):
   le landing in `/cantieri/` sono file veri e restano separate.
 
@@ -47,6 +47,8 @@ Webhook per landing: se una landing di `cantieri/<slug>/` deve andare a un workf
 |---|---|
 | `cantieri/via-iv-martiri-mugnano/` | `GHL_WEBHOOK_URL` (predefinito) |
 | `cantieri/via-pietro-nenni-mugnano/` | `GHL_WEBHOOK_URL_VIA_PIETRO_NENNI_MUGNANO` |
+| Sito: form "Valuta casa" (`/.netlify/functions/sito-form`) | `GHL_WEBHOOK_URL_VALUTAZIONE` |
+| Sito: form "Lavora con noi" (`/.netlify/functions/sito-form`) | `GHL_WEBHOOK_URL_CANDIDATURE` |
 Mai scriverlo nei file.
 
 ## Anteprima in locale
