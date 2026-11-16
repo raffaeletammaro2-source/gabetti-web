@@ -1,0 +1,13 @@
+# Un solo sito Netlify per tutto il repo, un solo dominio.
+# La build copia le pagine in _site/: il sito principale (sito/) va alla radice,
+# ogni landing resta nella sua cartella e prende il suo slug (es. /cantieri/via-iv-martiri-mugnano/).
+[build]
+  command = "bash build.sh"
+  publish = "_site"
+  functions = "netlify/functions"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
