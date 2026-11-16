@@ -1,6 +1,10 @@
 // Riceve i contatti dai form delle landing e li inoltra a GoHighLevel.
-// Il webhook NON è nel codice: va impostato su Netlify come variabile d'ambiente GHL_WEBHOOK_URL
-// (Site configuration → Environment variables).
+// I webhook NON sono nel codice: vanno impostati su Netlify come variabili d'ambiente
+// (Project configuration → Environment variables).
+//   GHL_WEBHOOK_URL                        → webhook predefinito, usato da tutte le landing
+//   GHL_WEBHOOK_URL_<SLUG>                 → webhook dedicato a una landing di /cantieri/<slug>/
+//                                            (slug in maiuscolo, trattini → trattini bassi)
+//   es. /cantieri/via-pietro-nenni-mugnano/ → GHL_WEBHOOK_URL_VIA_PIETRO_NENNI_MUGNANO
 
 const FIELDS = [
   "nome", "telefono", "email", "citta", "tipologia", "messaggio",
@@ -42,9 +46,12 @@ export default async (req) => {
     submitted_at: new Date().toISOString(),
   };
 
-  const webhook = process.env.GHL_WEBHOOK_URL;
+  // Webhook dedicato alla landing, se esiste; altrimenti quello predefinito
+  const slug = (lead.pagina || "").match(/^\/cantieri\/([a-z0-9-]+)\/?/)?.[1];
+  const dedicated = slug ? "GHL_WEBHOOK_URL_" + slug.toUpperCase().replace(/-/g, "_") : null;
+  const webhook = (dedicated && process.env[dedicated]) || process.env.GHL_WEBHOOK_URL;
   if (!webhook) {
-    console.error("GHL_WEBHOOK_URL non impostata");
+    console.error("Nessun webhook impostato (" + (dedicated || "GHL_WEBHOOK_URL") + ")");
     return json(500, { ok: false });
   }
 

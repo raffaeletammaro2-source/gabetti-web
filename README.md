@@ -29,7 +29,15 @@ Un solo sito Netlify per tutto il repo, un solo dominio:
 
 ## Contatti dai form
 I form inviano a `/.netlify/functions/lead` (`netlify/functions/lead.mjs`), che controlla i dati, scarta lo spam
-e inoltra a GoHighLevel. Il webhook va impostato su Netlify: **Site configuration → Environment variables → `GHL_WEBHOOK_URL`**.
+e inoltra a GoHighLevel. Il webhook va impostato su Netlify: **Project configuration → Environment variables → `GHL_WEBHOOK_URL`**.
+
+Webhook per landing: se una landing di `cantieri/<slug>/` deve andare a un workflow diverso, aggiungere la variabile
+`GHL_WEBHOOK_URL_<SLUG>` (slug in maiuscolo, trattini → trattini bassi). Se non c'è, si usa `GHL_WEBHOOK_URL`.
+
+| Landing | Variabile |
+|---|---|
+| `cantieri/via-iv-martiri-mugnano/` | `GHL_WEBHOOK_URL` (predefinito) |
+| `cantieri/via-pietro-nenni-mugnano/` | `GHL_WEBHOOK_URL_VIA_PIETRO_NENNI_MUGNANO` |
 Mai scriverlo nei file.
 
 ## Anteprima in locale
