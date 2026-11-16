@@ -1,7 +1,6 @@
 import { WhatsAppIcon } from "./SocialIcons";
 import { trackWhatsAppClick } from "@/lib/tracking";
-
-const PHONE = "https://wa.me/393762837626";
+import { CRM_WHATSAPP as PHONE } from "@/data/agencies";
 
 const FloatingWhatsAppButton = () => {
   const handleClick = () => {

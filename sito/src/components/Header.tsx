@@ -3,7 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 import { Heart, Menu, X } from "lucide-react";
 import { useFavorites } from "@/lib/favorites";
 import logo from "@/assets/gabetti-logo.png";
-import { WhatsAppIcon, InstagramIcon, FacebookIcon } from "./SocialIcons";
+import { WhatsAppIcon } from "./SocialIcons";
+import { CRM_WHATSAPP } from "@/data/agencies";
 import { trackWhatsAppClick } from "@/lib/tracking";
 import { useCompraEnabled } from "@/lib/siteSettings";
 
@@ -42,15 +43,9 @@ const Header = () => {
         </nav>
         <div className="hidden md:flex items-center gap-4">
           {fav}
-          <a href="https://wa.me/390000000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
-            onClick={() => trackWhatsAppClick("https://wa.me/390000000000")} className="hover:opacity-80 transition-opacity">
+          <a href={CRM_WHATSAPP} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
+            onClick={() => trackWhatsAppClick(CRM_WHATSAPP)} className="hover:opacity-80 transition-opacity">
             <WhatsAppIcon className="w-5 h-5 text-[#25D366]" />
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:opacity-80 transition-opacity">
-            <InstagramIcon className="w-5 h-5 text-[#E4405F]" />
-          </a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:opacity-80 transition-opacity">
-            <FacebookIcon className="w-5 h-5 text-[#1877F2]" />
           </a>
         </div>
         <div className="md:hidden flex items-center">{fav}

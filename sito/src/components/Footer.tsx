@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "@/assets/gabetti-logo.png";
 import { WhatsAppIcon, InstagramIcon, FacebookIcon } from "./SocialIcons";
 import { cities } from "@/data/cities";
+import { agencies, CRM_WHATSAPP } from "@/data/agencies";
 import { trackWhatsAppClick, trackCtaClick } from "@/lib/tracking";
 
 const Footer = () => (
@@ -33,17 +34,21 @@ const Footer = () => (
             <li><a href="/#faq" className="hover:underline">Domande frequenti</a></li>
             <li><a href="/#form-section" onClick={() => trackCtaClick("Richiedi valutazione gratuita")} className="hover:underline">Richiedi valutazione gratuita</a></li>
           </ul>
-          <div className="flex justify-center md:justify-start gap-4 mt-5">
-            <a href="https://wa.me/390000000000" target="_blank" rel="noopener noreferrer" aria-label="Contattaci su WhatsApp" onClick={() => trackWhatsAppClick("https://wa.me/390000000000")} className="text-secondary-foreground/70 hover:text-secondary-foreground transition-colors">
-              <WhatsAppIcon className="w-5 h-5" />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram Gabetti" className="text-secondary-foreground/70 hover:text-secondary-foreground transition-colors">
-              <InstagramIcon className="w-5 h-5" />
-            </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook Gabetti" className="text-secondary-foreground/70 hover:text-secondary-foreground transition-colors">
-              <FacebookIcon className="w-5 h-5" />
-            </a>
-          </div>
+          <a href={CRM_WHATSAPP} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick(CRM_WHATSAPP)}
+            className="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-secondary-foreground/90 hover:text-secondary-foreground">
+            <WhatsAppIcon className="w-5 h-5" /> Scrivici su WhatsApp
+          </a>
+          <h3 className="font-bold mt-6 mb-3 text-sm uppercase tracking-wide">Le nostre agenzie</h3>
+          <ul className="space-y-2 text-sm text-secondary-foreground/75">
+            {agencies.map((a) => (
+              <li key={a.name} className="flex items-center justify-center md:justify-start gap-3">
+                <span className="min-w-0 flex-1 md:flex-none md:w-44 truncate text-left">{a.name.replace("Gabetti ", "")}</span>
+                <a href={a.whatsapp} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${a.name}`} onClick={() => trackWhatsAppClick(a.whatsapp)} className="text-secondary-foreground/70 hover:text-secondary-foreground transition-colors"><WhatsAppIcon className="w-4 h-4" /></a>
+                {a.instagram && <a href={a.instagram} target="_blank" rel="noopener noreferrer" aria-label={`Instagram ${a.name}`} className="text-secondary-foreground/70 hover:text-secondary-foreground transition-colors"><InstagramIcon className="w-4 h-4" /></a>}
+                <a href={a.facebook} target="_blank" rel="noopener noreferrer" aria-label={`Facebook ${a.name}`} className="text-secondary-foreground/70 hover:text-secondary-foreground transition-colors"><FacebookIcon className="w-4 h-4" /></a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
       <div className="border-t border-secondary-foreground/10 pt-5 text-center">

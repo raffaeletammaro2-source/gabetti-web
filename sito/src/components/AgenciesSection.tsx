@@ -1,6 +1,7 @@
 import { MapPin } from "lucide-react";
 import { WhatsAppIcon, InstagramIcon, FacebookIcon } from "./SocialIcons";
 import { trackWhatsAppClick } from "@/lib/tracking";
+import { agencies } from "@/data/agencies";
 
 const GoogleIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className}>
@@ -11,57 +12,7 @@ const GoogleIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-type Agency = {
-  name: string;
-  area: string;
-  whatsapp: string;
-  google: string;
-  instagram?: string;
-  facebook: string;
-};
 
-const agencies: Agency[] = [
-  {
-    name: "Gabetti Marano",
-    area: "Consulenti locali esperti delle zone di Marano di Napoli e Calvizzano",
-    whatsapp: "https://wa.me/393926496197",
-    google: "https://share.google/ww1NvHu7Uv7GkkJNr",
-    instagram: "https://www.instagram.com/gabetti_marano?igsh=NTlubDUxamxvbGYy",
-    facebook: "https://www.facebook.com/share/1FtMcjTdfy/?mibextid=wXlfr",
-  },
-  {
-    name: "Gabetti Mugnano",
-    area: "Consulenti locali esperti delle zone di Mugnano di Napoli, Melito, Chiaiano e limitrofe",
-    whatsapp: "https://wa.me/393512319735",
-    google: "https://share.google/EmxGHB8MXekjruK87",
-    instagram: "https://www.instagram.com/gabetti_mugnano?igsh=MTJ3cjE2MGEza2VobQ==",
-    facebook: "https://www.facebook.com/share/17Ltmpe8aX/?mibextid=wXlfr",
-  },
-  {
-    name: "Gabetti Villaricca - Qualiano",
-    area: "Consulenti locali esperti delle zone di Villaricca e Qualiano",
-    whatsapp: "https://wa.me/393452271506",
-    google: "https://share.google/JTj6en6VbPwam0dW4",
-    instagram: "https://www.instagram.com/gabetti_villaricca_qualiano?igsh=Y2FtZ2lrMjZlc3hk",
-    facebook: "https://www.facebook.com/share/1Cd2NpbjiP/?mibextid=wXlfr",
-  },
-  {
-    name: "Gabetti Frattamaggiore",
-    area: "Consulenti locali esperti delle zone di Frattamaggiore, Frattaminore, Grumo Nevano, Afragola, Sant'Arpino e limitrofe",
-    whatsapp: "https://wa.me/393314162642",
-    google: "https://share.google/0MV1f6VfGuysImcvw",
-    instagram: "https://www.instagram.com/gabetti_frattamaggiore?igsh=MXc0eHNyMGZkbnNpNw==",
-    facebook: "https://www.facebook.com/share/1BtRKFRxeK/?mibextid=wXlfr",
-  },
-  {
-    name: "Gabetti Giugliano",
-    area: "Consulenti locali esperti della zona di Giugliano in Campania, Sant'Antimo e limitrofe",
-    whatsapp: "https://wa.me/393452271506",
-    google: "https://share.google/JTj6en6VbPwam0dW4",
-    instagram: "https://www.instagram.com/gabetti_villaricca_qualiano?igsh=Y2FtZ2lrMjZlc3hk",
-    facebook: "https://www.facebook.com/share/1aioCcSe3g/?mibextid=wXlfr",
-  },
-];
 
 const SocialLink = ({ href, label, children, onClick }: { href: string; label: string; children: React.ReactNode; onClick?: () => void }) => (
   <a
