@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /grazie
+
+Sitemap: https://gabetti-adg.it/sitemap.xml
+
+User-agent: *
+Disallow: /admin
+Disallow: /preferiti

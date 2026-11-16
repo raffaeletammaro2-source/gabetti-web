@@ -1,0 +1,2 @@
+- Staff permissions live in `user_roles` (admin/agent) checked via `has_role`/`is_staff` in RLS; the first registered account is auto-promoted to admin. Why: never trust client-side role checks.
+- Property photos go in the private `property-images` bucket and are stored as long-lived signed URLs, because public buckets are blocked on this project.

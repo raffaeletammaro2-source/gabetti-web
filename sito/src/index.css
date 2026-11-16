@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 200 10% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 200 10% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 10% 20%;
+    --primary: 345 92% 37%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 200 10% 33%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 200 10% 40%;
+    --accent: 345 92% 37%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 345 92% 37%;
+    --radius: 0.5rem;
+    --header-bg: 0 0% 0%;
+    --section-alt: 0 0% 96%;
+    --primary-dark: 347 87% 29%;
+    --success: 142 71% 32%;
+    --listing-bg: 210 9% 96%;
+    --listing-border: 216 10% 90%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Manrope', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Manrope', sans-serif;
+    @apply font-bold;
+  }
+}
+
+.gab-pin {
+  display: inline-block; white-space: nowrap; padding: 4px 8px; border-radius: 9999px;
+  background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
+  font: 700 12px/1.2 inherit; box-shadow: 0 2px 6px hsl(var(--foreground) / 0.3);
+}

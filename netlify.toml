@@ -6,6 +6,27 @@
   publish = "_site"
   functions = "netlify/functions"
 
+[build.environment]
+  NODE_VERSION = "20"
+
+# /cantieri/ senza landing → pagina Nuove costruzioni del sito
+[[redirects]]
+  from = "/cantieri"
+  to = "/nuove-costruzioni"
+  status = 301
+
+[[redirects]]
+  from = "/cantieri/"
+  to = "/nuove-costruzioni"
+  status = 301
+
+# Il sito principale è un'app React: ogni indirizzo che non è un file vero (es. /servizi, /immobile/...)
+# va a index.html e lo gestisce React. Le landing in /cantieri/ sono file veri e hanno la precedenza.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]

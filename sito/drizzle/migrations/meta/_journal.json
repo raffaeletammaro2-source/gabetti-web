@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792677785601,
+      "tag": "0000_compra_properties",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792679148971,
+      "tag": "0001_agencies_and_reference_code",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792754476914,
+      "tag": "0002_admin_roles_and_management",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792758944576,
+      "tag": "0003_site_settings",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794846051769,
+      "tag": "0004_security_hardening",
+      "breakpoints": true
+    }
+  ]
+}

@@ -7,3 +7,6 @@ dist/
 .vercel/
 _site/
 .netlify/
+# Il .env del sito contiene solo l'indirizzo e la chiave pubblica (publishable) di Supabase,
+# che finiscono comunque nel codice pubblicato: serve alla build su Netlify.
+!sito/.env

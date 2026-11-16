@@ -3,9 +3,18 @@
 set -euo pipefail
 rm -rf _site
 mkdir -p _site
-# Sito principale alla radice del dominio (quando ci sarà)
-if [ -d sito ] && [ -n "$(ls -A sito 2>/dev/null)" ]; then cp -R sito/. _site/; fi
-# Landing dei cantieri: /cantieri/<slug>/
+
+# Sito principale alla radice del dominio: app React (Vite) importata da Lovable, va costruita.
+if [ -f sito/package.json ]; then
+  (
+    cd sito
+    npm ci --no-audit --no-fund || npm install --no-audit --no-fund
+    npm run build
+  )
+  cp -R sito/dist/. _site/
+fi
+
+# Landing dei cantieri: /cantieri/<slug>/ (HTML statico, non passa dalla build di React)
 cp -R cantieri _site/cantieri
 # Elementi comuni: /shared/
 cp -R shared _site/shared
