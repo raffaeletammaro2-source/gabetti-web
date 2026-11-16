@@ -390,25 +390,11 @@ Crea una pagina separata con:
 
 Genera tutto il codice React + Tailwind CSS, struttura pulita, componenti riutilizzabili.
 
-This project was built with [Lovable](https://lovable.dev).
+## Dove gira oggi (da novembre 2026)
 
-**Live app**: https://gabetti-adg.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/e48085e2-ed3a-432b-9be4-2a69c3e6e6e1).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+- **Codice:** repo `gabetti-web`, cartella `sito/`. Si modifica qui, non più su Lovable.
+- **Hosting:** Netlify, dominio https://gabetti-adg.it (build in `../build.sh`).
+- **Database, login admin:** Supabase, progetto `gabetti-adg` (`iaauxncprjravzxfmeno`). Struttura in `supabase/setup/01_schema.sql`.
+- **Form valutazione e Lavora con noi:** funzione Netlify `../netlify/functions/sito-form.mjs` → GoHighLevel.
+  Le email di conferma e avviso partono dai workflow di GoHighLevel.
+- **Email di login (reimposta password, conferma):** Supabase Auth con SMTP proprio.

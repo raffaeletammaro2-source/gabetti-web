@@ -18,7 +18,6 @@ import PropertyDetail from "./pages/PropertyDetail.tsx";
 import Preferiti from "./pages/Preferiti.tsx";
 import Admin from "./pages/Admin.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
-import Unsubscribe from "./pages/Unsubscribe.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import CookiePolicy from "./pages/CookiePolicy.tsx";
 import { captureAttribution } from "@/lib/attribution";
@@ -36,7 +35,6 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/grazie" element={<ThankYou />} />
-            <Route path="/unsubscribe" element={<Unsubscribe />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
             <Route path="/nuove-costruzioni" element={<NuoveCostruzioni />} />

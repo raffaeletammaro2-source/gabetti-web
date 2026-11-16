@@ -10,7 +10,7 @@ interface SeoHeadProps {
 }
 
 const SITE_URL = "https://gabetti-adg.it";
-const DEFAULT_OG = "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2b011704-f0d1-4587-8321-4af6c6444995/id-preview-5a93cf0d--e48085e2-ed3a-432b-9be4-2a69c3e6e6e1.lovable.app-1775674201422.png";
+const DEFAULT_OG = "https://gabetti-adg.it/og-image.jpg";
 
 const SeoHead = ({ title, description, canonical, ogImage, noindex, jsonLd }: SeoHeadProps) => {
   const url = canonical ? (canonical.startsWith("http") ? canonical : `${SITE_URL}${canonical}`) : SITE_URL;

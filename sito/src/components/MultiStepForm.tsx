@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Building2, Home, Building, Store, HelpCircle, Landmark } from "lucide-react";
+import { sendSiteForm } from "@/lib/forms";
 
 declare global {
   interface Window { dataLayer: Record<string, unknown>[]; }
@@ -34,6 +35,8 @@ const initialData: FormData = {
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<FormData>(initialData);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const set = (field: keyof FormData, value: string | boolean) =>
@@ -53,8 +56,9 @@ const MultiStepForm = () => {
     setStep((s) => s + 1);
   };
 
-  const submit = () => {
-    if (!canNext()) return;
+  const submit = async () => {
+    if (!canNext() || sending) return;
+    setError("");
     const eventId = "lead_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
     const [firstName, ...lastParts] = data.name.trim().split(" ");
     const lastName = lastParts.join(" ");
@@ -81,8 +85,8 @@ const MultiStepForm = () => {
       gdpr: data.gdpr,
     }));
 
-    // Webhook Zapier (fire-and-forget, no-cors)
-    const zone = data.zone === "Altro" ? data.zoneAltro : data.zone;
+    // Inoltro a GoHighLevel tramite la funzione Netlify (le email partono dal workflow di GoHighLevel)
+    const zone = zoneFinal;
     const payload = {
       event_id: eventId,
       submitted_at: new Date().toISOString(),
@@ -102,56 +106,13 @@ const MultiStepForm = () => {
       experience: data.experience,
       gdpr: data.gdpr,
     };
-    // Notifiche email transazionali (utente + admin) + webhook via Lovable Cloud
-    import("@/integrations/supabase/client").then(({ supabase }) => {
-      // Webhook LeadConnector via edge function (evita CORS / ad blocker)
-      supabase.functions.invoke("forward-lead-webhook", { body: payload })
-        .then(({ data, error }) => {
-          if (error) console.error("Webhook error", error);
-          else console.log("Webhook forwarded:", data);
-        });
-
-      // Email di conferma all'utente
-      supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "lead-confirmation",
-          recipientEmail: data.email,
-          idempotencyKey: `lead-confirm-${eventId}`,
-          templateData: {
-            firstName,
-            propertyType: data.propertyType,
-            sqm: data.sqm,
-            zone,
-            address: data.address,
-          },
-        },
-      }).catch((err) => console.error("User email error", err));
-
-      // Notifica admin
-      supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "lead-admin-notification",
-          recipientEmail: "valutazioni@gabetti-adg.it",
-          idempotencyKey: `lead-admin-${eventId}`,
-          templateData: {
-            firstName,
-            lastName,
-            email: data.email,
-            phone: data.phone,
-            propertyType: data.propertyType,
-            sqm: data.sqm,
-            condition: data.condition,
-            zone,
-            address: data.address,
-            timeline: data.timeline,
-            experience: data.experience,
-            pageUrl: window.location.href,
-            submittedAt: new Date().toISOString(),
-            eventId,
-          },
-        },
-      }).catch((err) => console.error("Admin email error", err));
-    });
+    setSending(true);
+    const ok = await sendSiteForm("valutazione", payload);
+    setSending(false);
+    if (!ok) {
+      setError("Si è verificato un errore nell'invio. Riprova tra poco o chiamaci.");
+      return;
+    }
 
     navigate("/grazie");
   };
@@ -258,6 +219,8 @@ const MultiStepForm = () => {
         </div>
       )}
 
+      {error && <p role="alert" className="mt-4 text-sm font-medium text-destructive">{error}</p>}
+
       <div className="flex gap-3 mt-6">
         {step > 1 && (
           <button type="button" onClick={() => setStep((s) => s - 1)} className="flex-1 py-3 rounded-lg border border-border font-semibold text-sm hover:bg-muted transition-colors">
@@ -269,8 +232,8 @@ const MultiStepForm = () => {
             Avanti
           </button>
         ) : (
-          <button type="button" onClick={submit} disabled={!canNext()} className="flex-1 py-3.5 rounded-lg bg-primary text-primary-foreground font-bold text-base disabled:opacity-40 hover:opacity-90 transition-opacity">
-            Valuta Casa!
+          <button type="button" onClick={submit} disabled={!canNext() || sending} className="flex-1 py-3.5 rounded-lg bg-primary text-primary-foreground font-bold text-base disabled:opacity-40 hover:opacity-90 transition-opacity">
+            {sending ? "Invio in corso..." : "Valuta Casa!"}
           </button>
         )}
       </div>

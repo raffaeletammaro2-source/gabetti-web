@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { supabase } from "@/integrations/supabase/client";
+import { sendSiteForm } from "@/lib/forms";
 import teamImg from "@/assets/lavora-con-noi.jpg";
 
 const benefits = [
@@ -43,30 +43,25 @@ const LavoraConNoi = () => {
     if (!gdpr) { setError("Devi acconsentire al trattamento dei dati personali."); return; }
     setSending(true);
     const id = `job_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
-    const { error: err } = await supabase.functions.invoke("send-transactional-email", {
-      body: {
-        templateName: "job-application-admin",
-        recipientEmail: "candidature@gabetti-adg.it",
-        idempotencyKey: id,
-        templateData: {
-          name: form.name.trim(), phone: form.phone.trim(), email: form.email.trim(),
-          experience: form.experience, letter: form.letter.trim().slice(0, 5000),
-          submittedAt: new Date().toLocaleString("it-IT"),
-        },
-      },
+    const fullName = form.name.trim();
+    const [firstName, ...lastParts] = fullName.split(" ");
+    // Inoltro a GoHighLevel tramite la funzione Netlify (le email partono dal workflow di GoHighLevel)
+    const ok = await sendSiteForm("candidatura", {
+      event_id: id,
+      submitted_at: new Date().toISOString(),
+      page_url: window.location.href,
+      form_name: "lavora_con_noi",
+      first_name: firstName,
+      last_name: lastParts.join(" "),
+      full_name: fullName,
+      email: form.email.trim(),
+      phone: form.phone.trim(),
+      experience: form.experience,
+      letter: form.letter.trim().slice(0, 5000),
+      gdpr: true,
     });
-    if (!err) {
-      supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "job-application-confirmation",
-          recipientEmail: form.email.trim(),
-          idempotencyKey: `${id}-confirm`,
-          templateData: { name: form.name.trim().split(" ")[0] },
-        },
-      }).catch((e) => console.error("Confirmation email error", e));
-    }
     setSending(false);
-    if (err) { setError("Si è verificato un errore. Riprova tra poco."); return; }
+    if (!ok) { setError("Si è verificato un errore. Riprova tra poco."); return; }
     (window as any).dataLayer = (window as any).dataLayer || [];
     (window as any).dataLayer.push({ event: "job_application_submitted", form_name: "lavora_con_noi" });
     setSent(true);
