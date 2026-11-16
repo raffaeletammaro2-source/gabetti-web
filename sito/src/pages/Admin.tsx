@@ -48,8 +48,8 @@ const Admin = () => {
             </nav>
             {isAdmin && (
               <label className="mb-6 flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4">
-                <span><span className="block font-semibold">Pagina Compra attiva nel menu</span>
-                  <span className="text-sm text-muted-foreground">{compraOn ? "La voce Compra porta agli annunci." : "La voce Compra è visibile ma cliccandola non succede nulla."}</span></span>
+                <span><span className="block font-semibold">Voce Compra nel menu</span>
+                  <span className="text-sm text-muted-foreground">{compraOn ? "La voce Compra è nel menu e porta agli annunci." : "La voce Compra è nascosta dal menu del sito e delle landing."}</span></span>
                 <Switch checked={compraOn} onCheckedChange={async (v) => { try { await setCompra(v); toast.success(v ? "Pagina Compra attivata" : "Pagina Compra disattivata"); } catch { toast.error("Salvataggio non riuscito"); } }} />
               </label>
             )}

@@ -22,8 +22,9 @@ const linkCls = ({ isActive }: { isActive: boolean }) =>
 const Header = () => {
   const [open, setOpen] = useState(false);
   const favCount = useFavorites().length;
-  const { data: compraOn = true } = useCompraEnabled();
-  const guard = (to: string) => (e: React.MouseEvent) => { if (to === "/compra" && !compraOn) e.preventDefault(); };
+  const { data: compraOn } = useCompraEnabled();
+  // La voce Compra si vede solo se attivata dall'area admin (impostazione compra_enabled)
+  const nav = NAV.filter((n) => n.to !== "/compra" || compraOn === true);
   const fav = (
     <Link to="/preferiti" aria-label={`Preferiti (${favCount})`} className="relative p-2 text-foreground hover:text-primary">
       <Heart className="w-5 h-5" />
@@ -37,8 +38,8 @@ const Header = () => {
           <img src={logo} alt="Gabetti Franchising" className="h-14 md:h-20 w-auto object-contain" />
         </Link>
         <nav className="hidden md:flex items-center gap-6" aria-label="Menu principale">
-          {NAV.map((n) => (
-            <NavLink key={n.to} to={n.to} end className={linkCls} onClick={guard(n.to)}>{n.label}</NavLink>
+          {nav.map((n) => (
+            <NavLink key={n.to} to={n.to} end className={linkCls}>{n.label}</NavLink>
           ))}
         </nav>
         <div className="hidden md:flex items-center gap-4">
@@ -56,9 +57,9 @@ const Header = () => {
       {open && (
         <nav className="md:hidden border-t border-border bg-background" aria-label="Menu mobile">
           <ul className="container flex flex-col py-3">
-            {NAV.map((n) => (
+            {nav.map((n) => (
               <li key={n.to}>
-                <NavLink to={n.to} end className={linkCls} onClick={(e) => { guard(n.to)(e); setOpen(false); }}>
+                <NavLink to={n.to} end className={linkCls} onClick={() => setOpen(false)}>
                   <span className="block py-3">{n.label}</span>
                 </NavLink>
               </li>
