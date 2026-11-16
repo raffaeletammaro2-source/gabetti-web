@@ -1,0 +1,53 @@
+/* Header comune delle landing Gabetti: stesso layout del sito principale (sito/src/components/Header.tsx)
+   + barra fissa con le sezioni della landing e il pulsante "Richiedi info".
+   Pulsanti nello stile della landing di via Pietro Nenni. */
+
+.gh,.gh-sub{font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.gh *,.gh-sub *{box-sizing:border-box}
+
+/* Riga 1: logo istituzionale + menu del sito */
+.gh{position:relative;z-index:55;background:#fff;border-bottom:2px solid #B20933}
+.gh-in{max-width:1200px;margin:0 auto;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.gh-logo{display:block;flex:none}
+.gh-logo img{display:block;height:56px;width:auto}
+.gh-nav{display:none;align-items:center;gap:1.5rem}
+.gh-nav a{font-size:.875rem;font-weight:600;color:#2E3538;text-decoration:none;transition:color .2s}
+.gh-nav a:hover,.gh-nav a[aria-current="page"]{color:#B20933}
+.gh-actions{display:none;align-items:center;gap:.6rem}
+.gh-burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:transparent;color:#2E3538;cursor:pointer;border-radius:10px}
+.gh-burger svg{width:26px;height:26px}
+.gh-burger .gh-x{display:none}
+.gh.open .gh-burger .gh-bars{display:none}
+.gh.open .gh-burger .gh-x{display:block}
+.gh-mob{display:none;border-top:1px solid #E3E5E7;background:#fff}
+.gh.open .gh-mob{display:block}
+.gh-mob ul{list-style:none;margin:0 auto;max-width:1200px;padding:.5rem 1rem 1rem}
+.gh-mob a{display:block;padding:.75rem 0;font-size:.95rem;font-weight:600;color:#2E3538;text-decoration:none}
+.gh-mob a[aria-current="page"]{color:#B20933}
+@media(min-width:768px){
+  .gh-logo img{height:80px}
+  .gh-nav{display:flex}
+  .gh-burger,.gh-mob,.gh.open .gh-mob{display:none}
+}
+@media(min-width:1200px){.gh-actions{display:flex}}
+
+/* Riga 2: sezioni della landing, resta fissa in alto durante lo scorrimento */
+.gh-sub{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #E6DED6}
+.gh-sub-in{max-width:1200px;margin:0 auto;padding:0 1rem;display:flex;align-items:center;gap:1.25rem;min-height:52px}
+.gh-sub-name{display:none;flex:none;font-size:.9rem;font-weight:800;color:#22282B;white-space:nowrap;padding-right:1.25rem;border-right:1px solid #E6DED6}
+.gh-sub ul{flex:1;min-width:0;list-style:none;margin:0;padding:.85rem 0;display:flex;gap:1.25rem;overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-size:.875rem;font-weight:600}
+.gh-sub ul::-webkit-scrollbar{display:none}
+.gh-sub ul a{color:#4C565C;text-decoration:none;transition:color .2s}
+.gh-sub ul a:hover{color:#B20933}
+.gh-sub .gh-btn{display:none}
+@media(min-width:900px){.gh-sub-name{display:block}}
+@media(min-width:768px){.gh-sub .gh-btn{display:inline-flex}}
+
+/* Pulsanti (stile landing via Pietro Nenni) */
+.gh-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:inherit;font-weight:700;font-size:.9rem;line-height:1.2;text-decoration:none;white-space:nowrap;border:0;cursor:pointer;border-radius:999px;padding:.7rem 1.1rem;transition:transform .15s ease,background .2s ease,box-shadow .2s ease}
+.gh-btn:hover{transform:translateY(-1px)}
+.gh-btn svg{width:18px;height:18px;flex:none}
+.gh-btn-red{background:#B20933;color:#fff;box-shadow:0 10px 24px -10px rgba(178,9,51,.7)}
+.gh-btn-red:hover{background:#8B0A25}
+.gh-btn-wa{background:#1FAF5A;color:#fff}
+.gh-btn-wa:hover{background:#18954C}

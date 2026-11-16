@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -65,7 +65,7 @@ h1,h2,h3{font-family:Poppins,ui-sans-serif,system-ui,sans-serif;font-weight:700;
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:72rem;margin:0 auto;padding:0 1.25rem}
-section[id]{scroll-margin-top:130px}
+section[id]{scroll-margin-top:64px}
 .sec{padding:3.5rem 0}
 @media(min-width:768px){.sec{padding:5.5rem 0}}
 .alt{background:var(--alt)}
@@ -76,32 +76,12 @@ section[id]{scroll-margin-top:130px}
 .overline{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--primary)}
 .muted{color:var(--muted)}
 .center{text-align:center}
-.btn{text-align:center;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:var(--radius);font-weight:600;padding:.875rem 1.5rem;transition:background-color .2s,transform .2s;cursor:pointer;font-size:1rem;border:0;font-family:inherit}
-.btn:active{transform:translateY(1px)}
-.btn-cta{background:var(--primary);color:#fff}
-.btn-cta:hover{background:var(--primary-hover)}
-.btn-outline{border:1px solid var(--primary);color:var(--primary);background:transparent}
-.btn-outline:hover{background:rgba(178,9,51,.06)}
-.btn-sm{padding:.625rem 1rem;font-size:.875rem;white-space:nowrap}
-.lbl-short{display:none}
-@media(max-width:420px){.lbl-long{display:none}.lbl-short{display:inline}.btn-sm{padding:.5rem .75rem}}
-.top-row img{min-width:0;flex-shrink:1;object-fit:contain;object-position:left}
-
-/* Header */
-header.top{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
-.top-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.75rem 1.25rem}
-.top-row img{height:56px;width:auto}
-@media(min-width:640px){.top-row img{height:70px}}
-@media(min-width:768px){.top-row img{height:78px}}
-.top-actions{display:flex;align-items:center;gap:.75rem}
-.wa-top{display:none;align-items:center;gap:.375rem;font-size:.875rem;font-weight:600}
-.wa-top:hover{color:var(--primary)}
-@media(min-width:640px){.wa-top{display:inline-flex}}
-nav.sections{border-top:1px solid var(--border)}
-nav.sections ul{list-style:none;display:flex;gap:1.25rem;overflow-x:auto;white-space:nowrap;padding:.625rem 1.25rem;font-size:.875rem;font-weight:600;scrollbar-width:none}
-nav.sections ul::-webkit-scrollbar{display:none}
-nav.sections a{color:var(--muted)}
-nav.sections a:hover,nav.sections a.contact{color:var(--primary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:"Manrope",system-ui,sans-serif;font-weight:700;font-size:.98rem;line-height:1.2;text-align:center;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:1rem 1.6rem;transition:transform .15s ease,background .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-cta{background:var(--primary);color:#fff;box-shadow:0 10px 24px -10px rgba(178,9,51,.7)}
+.btn-cta:hover{background:#8B0A25}
+.btn-outline{background:#fff;color:#22282B;border:1.5px solid #E6DED6}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
 
 /* Hero */
 .hero{display:grid;gap:2.5rem;align-items:center;padding:3rem 1.25rem}
@@ -220,6 +200,8 @@ footer{background:var(--footer);color:#E9EBEC;padding:3.5rem 0}
 .wa-float:hover{transform:scale(1.1)}
 @media(min-width:768px){.wa-float{right:2rem;bottom:2rem}}
 </style>
+<link rel="stylesheet" href="/shared/site-header.css">
+<script src="/shared/site-header.js" defer></script>
 </head>
 <body>
 
@@ -229,28 +211,49 @@ footer{background:var(--footer);color:#E9EBEC;padding:3.5rem 0}
   <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" d="M20 6 9 17l-5-5"/></symbol>
 </svg>
 
-<header class="top">
-  <div class="wrap top-row" style="padding-left:1.25rem;padding-right:1.25rem">
-    <img src="img/logo-gabetti.png" alt="Gabetti Mugnano" width="1013" height="496">
-    <div class="top-actions">
-      <a class="wa-top wa-link" href="#" target="_blank" rel="noopener noreferrer">
-        <svg width="16" height="16"><use href="#i-wa"/></svg>WhatsApp 351.231.9735
-      </a>
-      <a class="btn btn-cta btn-sm" href="#contatti"><span class="lbl-long">Richiedi Informazioni</span><span class="lbl-short">Richiedi Info</span></a>
+<header class="gh">
+  <div class="gh-in">
+    <a class="gh-logo" href="/" aria-label="Gabetti Franchising — Home"><img src="/shared/img/gabetti-franchising.png" alt="Gabetti Franchising" width="480" height="198"></a>
+    <nav class="gh-nav" aria-label="Menu principale">
+      <a href="/">Vendi</a>
+      <a href="/compra">Compra</a>
+      <a href="/nuove-costruzioni" aria-current="page">Nuove Costruzioni</a>
+      <a href="/servizi">I servizi</a>
+      <a href="/lavora-con-noi">Lavora con noi</a>
+    </nav>
+    <div class="gh-actions">
+      <a class="gh-btn gh-btn-wa wa-link" href="#" target="_blank" rel="noopener noreferrer"><svg><use href="#i-wa"/></svg>WhatsApp 351 231 9735</a>
     </div>
+    <button type="button" class="gh-burger" aria-label="Apri menu" aria-expanded="false">
+      <svg class="gh-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg class="gh-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
   </div>
-  <nav class="sections" aria-label="Sezioni della pagina">
-    <ul class="wrap" style="padding-left:1.25rem;padding-right:1.25rem">
+  <nav class="gh-mob" aria-label="Menu mobile">
+    <ul>
+        <li><a href="/">Vendi</a></li>
+        <li><a href="/compra">Compra</a></li>
+        <li><a href="/nuove-costruzioni" aria-current="page">Nuove Costruzioni</a></li>
+        <li><a href="/servizi">I servizi</a></li>
+        <li><a href="/lavora-con-noi">Lavora con noi</a></li>
+    </ul>
+  </nav>
+</header>
+<nav class="gh-sub" aria-label="Sezioni della pagina">
+  <div class="gh-sub-in">
+    <span class="gh-sub-name">Condominio Aurora · Via IV Martiri</span>
+    <ul>
       <li><a href="#tipologie">Tipologie e prezzi</a></li>
       <li><a href="#complesso">Il complesso</a></li>
       <li><a href="#impianti">Impianti</a></li>
       <li><a href="#spazi-comuni">Spazi comuni</a></li>
       <li><a href="#garanzie">Garanzie</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a class="contact" href="#contatti">Contatti</a></li>
+      <li><a href="#contatti">Contatti</a></li>
     </ul>
-  </nav>
-</header>
+    <a class="gh-btn gh-btn-red" href="#contatti">Richiedi info</a>
+  </div>
+</nav>
 
 <main>
 <!-- Hero -->
@@ -502,7 +505,7 @@ document.querySelectorAll('.wa-link').forEach(a => {
 document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
   const id = a.getAttribute('href').slice(1); const el = id && document.getElementById(id);
   if (!el) return; e.preventDefault();
-  const off = document.querySelector('header.top').offsetHeight + 12;
+  const off = document.querySelector('.gh-sub').offsetHeight + 12;
   window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
   history.replaceState(null, '', '#' + id);
 }));
