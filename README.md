@@ -6,7 +6,7 @@ Progetti web di Gabetti curati da bivio.studio. Repository privato.
 | Progetto | Cartella | Tecnologia | URL online | Stato |
 |---|---|---|---|---|
 | Landing cantiere Via Pietro Nenni, Mugnano (NA) | `cantieri/via-pietro-nenni-mugnano/` | HTML statico | da pubblicare | Pronta, da collegare a CRM e tracciamento |
-| Landing Condominio Aurora, Via IV Martiri, Mugnano (NA) | `cantieri/via-iv-martiri-mugnano/` | HTML statico (rifatta da Lovable) | oggi su Lovable: condominioaurora.gabetti-adg.it | Pronta, mancano le immagini |
+| Landing Condominio Aurora, Via IV Martiri, Mugnano (NA) | `cantieri/via-iv-martiri-mugnano/` | HTML statico (rifatta da Lovable) | oggi su Lovable: condominioaurora.gabetti-adg.it | Pronta, da pubblicare su Netlify |
 | Sito web Gabetti | `sito/` | React (Lovable) | dominio su Lovable | Da importare da Lovable |
 
 ## Struttura
