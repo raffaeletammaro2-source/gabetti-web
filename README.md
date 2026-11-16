@@ -5,9 +5,9 @@ Progetti web di Gabetti curati da bivio.studio. Repository privato.
 ## Progetti
 | Progetto | Cartella | Tecnologia | URL online | Stato |
 |---|---|---|---|---|
-| Landing cantiere Via Pietro Nenni, Mugnano (NA) | `cantieri/via-pietro-nenni-mugnano/` | HTML statico | da pubblicare | Pronta, da collegare a CRM e tracciamento |
-| Landing Condominio Aurora, Via IV Martiri, Mugnano (NA) | `cantieri/via-iv-martiri-mugnano/` | HTML statico (rifatta da Lovable) | oggi su Lovable: condominioaurora.gabetti-adg.it | Pronta, da pubblicare su Netlify |
-| Sito web Gabetti | `sito/` | React (Lovable) | dominio su Lovable | Da importare da Lovable |
+| Sito web Gabetti | `sito/` | React + Vite (importato da Lovable, repo `gabetti-adg` @ `bd474ca`), dati su Supabase (Lovable Cloud) | https://gabetti-adg.it/ | Online su Netlify |
+| Landing Condominio Aurora, Via IV Martiri, Mugnano (NA) | `cantieri/via-iv-martiri-mugnano/` | HTML statico (rifatta da Lovable) | https://gabetti-adg.it/cantieri/via-iv-martiri-mugnano/ | Online, form → GoHighLevel |
+| Landing cantiere Via Pietro Nenni, Mugnano (NA) | `cantieri/via-pietro-nenni-mugnano/` | HTML statico | https://gabetti-adg.it/cantieri/via-pietro-nenni-mugnano/ | Online, form → GoHighLevel (webhook dedicato) |
 
 ## Struttura
 ```
@@ -26,6 +26,15 @@ Un solo sito Netlify per tutto il repo, un solo dominio:
 - `build.sh` copia le pagine in `_site/`: `sito/` alla radice, le landing in `/cantieri/<slug>/`.
 - `netlify.toml` imposta build, cartella pubblicata e funzioni.
 - Ogni push su `main` va online da solo.
+
+## Sito principale (`sito/`)
+- App React importata da Lovable: Netlify la costruisce a ogni push (`npm ci` + `npm run build` in `build.sh`).
+- **Da ora si modifica qui, non più su Lovable**: il repo `gabetti-adg` collegato a Lovable non viene più letto.
+- I dati (immobili, contatti, utenti admin, email) restano su **Supabase / Lovable Cloud**: il progetto Lovable non va eliminato.
+  Anche le funzioni in `sito/supabase/functions/` girano lì: modificarle qui non basta, vanno pubblicate su Supabase.
+- `sito/.env` contiene solo indirizzo e chiave pubblica di Supabase (sono comunque visibili nel sito pubblicato).
+- `netlify.toml` manda a `index.html` ogni indirizzo che non è un file vero (es. `/servizi`, `/immobile/...`):
+  le landing in `/cantieri/` sono file veri e restano separate.
 
 ## Contatti dai form
 I form inviano a `/.netlify/functions/lead` (`netlify/functions/lead.mjs`), che controlla i dati, scarta lo spam
