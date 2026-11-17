@@ -21,7 +21,7 @@ const Index = () => (
   <>
     <SeoHead
       title="Valutazione Casa Gratuita Napoli Nord | Gabetti Franchising"
-      description="Scopri quanto vale la tua casa a Marano, Mugnano, Giugliano, Villaricca, Qualiano, Frattamaggiore. Valutazione immobiliare gratuita in 24h, basata su prezzi reali. Senza impegno."
+      description="Scopri quanto vale la tua casa a Marano, Mugnano, Giugliano, Villaricca, Qualiano, Frattamaggiore. Valutazione immobiliare gratuita, basata su prezzi reali. Senza impegno."
       canonical="/"
       jsonLd={[
         organizationSchema,

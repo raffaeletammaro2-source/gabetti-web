@@ -13,8 +13,8 @@ const steps = [
   },
   {
     icon: FileCheck,
-    title: "3. Ricevi il report in 24h",
-    desc: "Ti inviamo via WhatsApp la valutazione professionale del tuo immobile, con range di prezzo minimo e massimo.",
+    title: "3. Ricevi la valutazione",
+    desc: "Il consulente ti presenta la valutazione professionale del tuo immobile, con range di prezzo minimo e massimo.",
   },
   {
     icon: MessageSquare,

@@ -23,7 +23,7 @@ export const cities: LocalCity[] = [
     province: "NA",
     agency: "Gabetti Marano",
     intro:
-      "Vivi a Marano di Napoli e vuoi sapere quanto vale la tua casa? L'agenzia Gabetti Marano offre una valutazione gratuita e professionale del tuo immobile in 24 ore, basata sui prezzi reali di vendita degli ultimi 6 mesi nel comune e nei quartieri limitrofi.",
+      "Vivi a Marano di Napoli e vuoi sapere quanto vale la tua casa? L'agenzia Gabetti Marano offre una valutazione gratuita e professionale del tuo immobile, basata sui prezzi reali di vendita degli ultimi 6 mesi nel comune e nei quartieri limitrofi.",
     marketDescription:
       "Il mercato immobiliare di Marano di Napoli nel 2026 mostra una buona stabilità, con una domanda costante per appartamenti familiari di 80-110 m² nelle zone centrali e ben servite. Le compravendite sono in lieve crescita rispetto al 2025, soprattutto per immobili ristrutturati o di nuova costruzione.",
     priceMin: 1300,
@@ -47,7 +47,7 @@ export const cities: LocalCity[] = [
     province: "NA",
     agency: "Gabetti Mugnano",
     intro:
-      "Vendere casa a Mugnano di Napoli al prezzo giusto richiede una conoscenza profonda del territorio. L'agenzia Gabetti Mugnano valuta gratuitamente il tuo immobile a Mugnano, Melito e Chiaiano in 24 ore, con dati reali e senza impegno.",
+      "Vendere casa a Mugnano di Napoli al prezzo giusto richiede una conoscenza profonda del territorio. L'agenzia Gabetti Mugnano valuta gratuitamente il tuo immobile a Mugnano, Melito e Chiaiano, con dati reali e senza impegno.",
     marketDescription:
       "Mugnano di Napoli vive nel 2026 una fase di mercato dinamica grazie alla sua posizione strategica vicino a Napoli e alla presenza della Tangenziale. Forte domanda per trilocali e quadrilocali in palazzine moderne.",
     priceMin: 1500,
@@ -71,7 +71,7 @@ export const cities: LocalCity[] = [
     province: "NA",
     agency: "Gabetti Giugliano",
     intro:
-      "Giugliano in Campania è il terzo comune della Campania per popolazione e uno dei mercati immobiliari più attivi dell'area nord di Napoli. Richiedi la valutazione gratuita della tua casa con Gabetti Giugliano: report dettagliato in 24 ore.",
+      "Giugliano in Campania è il terzo comune della Campania per popolazione e uno dei mercati immobiliari più attivi dell'area nord di Napoli. Richiedi la valutazione gratuita della tua casa con Gabetti Giugliano, con dati reali e senza impegno.",
     marketDescription:
       "Il mercato immobiliare di Giugliano nel 2026 è particolarmente vivace, con un'ampia offerta che spazia da appartamenti in centro a ville indipendenti nelle frazioni costiere di Lago Patria e Varcaturo. Domanda alta da parte di famiglie e investitori.",
     priceMin: 1200,
@@ -95,7 +95,7 @@ export const cities: LocalCity[] = [
     province: "NA",
     agency: "Gabetti Villaricca - Qualiano",
     intro:
-      "L'agenzia Gabetti Villaricca - Qualiano valuta gratuitamente la tua casa a Villaricca con un'analisi professionale dei prezzi reali di mercato. Report in 24 ore, senza impegno.",
+      "L'agenzia Gabetti Villaricca - Qualiano valuta gratuitamente la tua casa a Villaricca con un'analisi professionale dei prezzi reali di mercato, senza impegno.",
     marketDescription:
       "Villaricca nel 2026 è un mercato stabile con prezzi accessibili e buona qualità della vita. Forte richiesta per appartamenti di 80-100 m² in palazzine recenti e per ville bifamiliari nelle zone residenziali.",
     priceMin: 1300,
@@ -119,7 +119,7 @@ export const cities: LocalCity[] = [
     province: "NA",
     agency: "Gabetti Villaricca - Qualiano",
     intro:
-      "Vuoi vendere casa a Qualiano? Gabetti Villaricca - Qualiano ti offre una valutazione immobiliare gratuita basata su dati reali del mercato locale, con report dettagliato in 24 ore.",
+      "Vuoi vendere casa a Qualiano? Gabetti Villaricca - Qualiano ti offre una valutazione immobiliare gratuita basata su dati reali del mercato locale, senza impegno.",
     marketDescription:
       "Qualiano nel 2026 mostra un mercato in moderata crescita, sostenuto dalla domanda di prima casa per giovani famiglie. Buona disponibilità di appartamenti e soluzioni indipendenti a prezzi accessibili.",
     priceMin: 1100,
@@ -143,7 +143,7 @@ export const cities: LocalCity[] = [
     province: "NA",
     agency: "Gabetti Frattamaggiore",
     intro:
-      "Frattamaggiore è uno dei centri più dinamici dell'area nord di Napoli. L'agenzia Gabetti Frattamaggiore valuta gratuitamente la tua casa in 24 ore, con dati reali su Frattamaggiore, Frattaminore, Grumo Nevano, Afragola e Sant'Arpino.",
+      "Frattamaggiore è uno dei centri più dinamici dell'area nord di Napoli. L'agenzia Gabetti Frattamaggiore valuta gratuitamente la tua casa, con dati reali su Frattamaggiore, Frattaminore, Grumo Nevano, Afragola e Sant'Arpino.",
     marketDescription:
       "Il mercato immobiliare di Frattamaggiore nel 2026 è caratterizzato da una domanda costante per appartamenti di 80-120 m² in centro e nelle aree ben collegate. Buona richiesta anche per soluzioni con terrazzo o doppi servizi.",
     priceMin: 1400,
@@ -167,7 +167,7 @@ export const cities: LocalCity[] = [
     province: "NA",
     agency: "Gabetti Frattamaggiore",
     intro:
-      "Vendere casa a Frattaminore è semplice con il supporto di Gabetti Frattamaggiore. Valutazione professionale gratuita del tuo immobile in 24 ore, basata sui prezzi reali del comune.",
+      "Vendere casa a Frattaminore è semplice con il supporto di Gabetti Frattamaggiore. Valutazione professionale gratuita del tuo immobile, basata sui prezzi reali del comune.",
     marketDescription:
       "Frattaminore nel 2026 mostra un mercato stabile, con domanda forte per appartamenti familiari di 80-100 m² e soluzioni indipendenti. Prezzi competitivi rispetto a Frattamaggiore.",
     priceMin: 1300,
@@ -191,7 +191,7 @@ export const cities: LocalCity[] = [
     province: "NA",
     agency: "Gabetti Frattamaggiore",
     intro:
-      "Grumo Nevano è un comune residenziale con un mercato immobiliare solido. Gabetti Frattamaggiore offre valutazione gratuita del tuo immobile in 24 ore, con dati reali e senza impegno.",
+      "Grumo Nevano è un comune residenziale con un mercato immobiliare solido. Gabetti Frattamaggiore offre valutazione gratuita del tuo immobile, con dati reali e senza impegno.",
     marketDescription:
       "Grumo Nevano nel 2026 mantiene un mercato equilibrato. Domanda costante per appartamenti familiari e soluzioni indipendenti. Prezzi in linea con la media dell'area nord di Napoli.",
     priceMin: 1300,
@@ -215,7 +215,7 @@ export const cities: LocalCity[] = [
     province: "NA",
     agency: "Gabetti Marano",
     intro:
-      "Calvizzano è un comune residenziale tranquillo nell'area nord di Napoli. Gabetti Marano valuta gratuitamente la tua casa a Calvizzano in 24 ore, con report basato sui prezzi reali di mercato.",
+      "Calvizzano è un comune residenziale tranquillo nell'area nord di Napoli. Gabetti Marano valuta gratuitamente la tua casa a Calvizzano, con report basato sui prezzi reali di mercato.",
     marketDescription:
       "Calvizzano nel 2026 mostra un mercato stabile con domanda costante per appartamenti familiari e ville bifamiliari. Apprezzato per la qualità della vita e i collegamenti con Marano e Napoli.",
     priceMin: 1300,
@@ -239,7 +239,7 @@ export const cities: LocalCity[] = [
     province: "CE",
     agency: "Gabetti Frattamaggiore",
     intro:
-      "Sant'Arpino, in provincia di Caserta, è ben servita dalla nostra agenzia Gabetti Frattamaggiore. Valutazione casa gratuita in 24 ore, con dati reali del mercato locale.",
+      "Sant'Arpino, in provincia di Caserta, è ben servita dalla nostra agenzia Gabetti Frattamaggiore. Valutazione casa gratuita, con dati reali del mercato locale.",
     marketDescription:
       "Sant'Arpino nel 2026 è un mercato stabile, con domanda costante per appartamenti familiari e soluzioni a prezzi accessibili. Apprezzata per la vicinanza ai principali centri della provincia di Napoli.",
     priceMin: 1100,

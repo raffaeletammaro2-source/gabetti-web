@@ -168,7 +168,7 @@ const PropertyDetail = () => {
           )}
 
           <Mortgage price={p.price} />
-          <AcquisitionBanner title="Devi vendere casa prima di acquistare questa?" text="Valutala gratis: report professionale in 24 ore, senza impegno." campaign="compra_dettaglio" />
+          <AcquisitionBanner title="Devi vendere casa prima di acquistare questa?" text="Valutala gratis: valutazione professionale, senza impegno." campaign="compra_dettaglio" />
         </div>
 
         <aside id="contatta" className="lg:sticky lg:top-4 h-fit rounded-xl border border-[hsl(var(--listing-border))] bg-card p-5">

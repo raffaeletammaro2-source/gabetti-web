@@ -179,7 +179,7 @@ const Servizi = () => (
       <section className="bg-primary py-14 text-center">
         <div className="container max-w-3xl">
           <h2 className="text-2xl md:text-4xl font-extrabold text-primary-foreground mb-4">Vuoi sapere quanto vale la tua casa?</h2>
-          <p className="text-primary-foreground/90 mb-6">Valutazione gratuita in 24 ore, basata sui prezzi reali della tua zona.</p>
+          <p className="text-primary-foreground/90 mb-6">Valutazione gratuita, basata sui prezzi reali della tua zona.</p>
           <Link
             to="/#form-section"
             onClick={() => trackCtaClick("servizi_cta")}

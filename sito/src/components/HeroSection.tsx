@@ -72,7 +72,7 @@ const HeroSection = () => (
             Scopri quanto vale <span className="text-primary">davvero</span> la tua casa nella tua zona
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed">
-            Valutazione gratuita in 24 ore basata sui prezzi reali di vendita degli ultimi 6 mesi nel tuo quartiere. Senza impegno, senza chiamate insistenti.
+            Valutazione gratuita basata sui prezzi reali di vendita degli ultimi 6 mesi nel tuo quartiere. Senza impegno, senza chiamate insistenti.
           </p>
           <div className="flex flex-wrap gap-3 mb-8">
             {badges.map((b) => (

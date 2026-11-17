@@ -22,8 +22,8 @@ const LocalLanding = () => {
   if (!city) return <NotFound />;
 
   const url = `/${city.slug}`;
-  const title = `Valutazione Casa ${city.name} Gratuita in 24h | Gabetti`;
-  const description = `Quanto vale la tua casa a ${city.name}? Valutazione immobiliare gratuita e professionale in 24 ore con ${city.agency}. Prezzi reali ${city.priceMin}-${city.priceMax} €/m². Senza impegno.`;
+  const title = `Valutazione Casa ${city.name} Gratuita | Gabetti`;
+  const description = `Quanto vale la tua casa a ${city.name}? Valutazione immobiliare gratuita e professionale con ${city.agency}. Prezzi reali ${city.priceMin}-${city.priceMax} €/m². Senza impegno.`;
 
   const realEstateLocal = {
     "@context": "https://schema.org",
@@ -70,7 +70,7 @@ const LocalLanding = () => {
                 <MapPin className="w-3.5 h-3.5" /> {city.name} ({city.province})
               </span>
               <h1 className="text-[2rem] leading-tight md:text-[3rem] md:leading-[1.1] font-extrabold mb-4">
-                Valutazione casa <span className="text-primary">{city.name}</span> gratuita in 24h
+                Valutazione casa <span className="text-primary">{city.name}</span> gratuita
               </h1>
               <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">{city.intro}</p>
               <div className="grid grid-cols-3 gap-3 mb-6">

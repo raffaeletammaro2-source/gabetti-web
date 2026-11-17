@@ -11,7 +11,7 @@ const blocks = [
   },
   {
     h: "Perché scegliere Gabetti Franchising per vendere casa",
-    p: "Gabetti Franchising opera nell'area nord di Napoli con 5 agenzie e oltre 500 immobili venduti. I consulenti vivono e lavorano nelle zone in cui operano, conoscono i prezzi reali strada per strada e dispongono di un database profilato di acquirenti. Tempi medi di vendita: 90 giorni. Valutazione gratuita e senza impegno in 24 ore.",
+    p: "Gabetti Franchising opera nell'area nord di Napoli con 5 agenzie e oltre 500 immobili venduti. I consulenti vivono e lavorano nelle zone in cui operano, conoscono i prezzi reali strada per strada e dispongono di un database profilato di acquirenti. Tempi medi di vendita: 90 giorni. Valutazione gratuita e senza impegno.",
   },
   {
     h: "Quali sono i comuni serviti",

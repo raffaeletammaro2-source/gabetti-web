@@ -3,7 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export const faqs = [
   {
     q: "Quanto vale la mia casa a Napoli e provincia nord?",
-    a: "Il valore di una casa nell'area nord di Napoli (Marano, Mugnano, Giugliano, Villaricca, Qualiano, Frattamaggiore) dipende da metratura, stato di conservazione, piano, esposizione e zona. I prezzi medi 2026 oscillano tra 1.200 e 2.400 €/m². Per una stima precisa basata sui prezzi reali di vendita degli ultimi 6 mesi, compila il modulo: ricevi la valutazione gratuita in 24 ore.",
+    a: "Il valore di una casa nell'area nord di Napoli (Marano, Mugnano, Giugliano, Villaricca, Qualiano, Frattamaggiore) dipende da metratura, stato di conservazione, piano, esposizione e zona. I prezzi medi 2026 oscillano tra 1.200 e 2.400 €/m². Per una stima precisa basata sui prezzi reali di vendita degli ultimi 6 mesi, compila il modulo e richiedi la valutazione gratuita.",
   },
   {
     q: "La valutazione immobiliare è davvero gratuita?",
