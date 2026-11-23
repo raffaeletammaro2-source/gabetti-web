@@ -208,8 +208,8 @@ const Hero = () => {
             className="hero-fade mt-7 max-w-2xl text-base leading-relaxed text-white/85 md:text-xl"
             style={{ ["--d" as string]: showIntro ? "2.5s" : "0.8s" }}
           >
-            Cinque sedi Gabetti tra Marano, Mugnano, Villaricca, Qualiano, Giugliano e Frattamaggiore. Vendiamo,
-            compriamo e valutiamo case con consulenti che conoscono ogni strada del quartiere.
+            Cinque sedi Gabetti tra Marano, Mugnano, Villaricca, Qualiano, Giugliano e Frattamaggiore. Vendiamo e
+            valutiamo case con consulenti che conoscono ogni strada del quartiere.
           </p>
           <div
             className="hero-fade mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
