@@ -52,12 +52,21 @@ const Header = ({ overlay = false }: { overlay?: boolean }) => {
       }
     >
       <div className={`container flex items-center justify-between transition-all duration-500 ${overlay && scrolled ? "py-2" : "py-3"}`}>
-        <Link to="/" aria-label="Gabetti Franchising Gruppo ADG — Home">
+        <Link to="/" aria-label="Gabetti Franchising Gruppo ADG — Home" className="flex items-center gap-3 md:gap-4">
           <img
             src={logo}
             alt="Gabetti Franchising"
             className={`w-auto object-contain transition-all duration-500 ${light ? "brightness-0 invert" : ""} ${overlay && scrolled ? "h-12 md:h-14" : "h-14 md:h-20"}`}
           />
+          <span
+            className={`border-l pl-3 text-[11px] font-semibold uppercase leading-tight tracking-[0.2em] transition-colors duration-500 md:pl-4 md:text-xs ${
+              light ? "border-white/40 text-white" : "border-border text-secondary"
+            }`}
+          >
+            Gruppo
+            <br />
+            ADG
+          </span>
         </Link>
         <nav className="hidden md:flex items-center gap-6" aria-label="Menu principale">
           {nav.map((n) => (
