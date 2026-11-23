@@ -62,7 +62,7 @@ export const organizationSchema = {
   sameAs: ["https://www.gabetti.it"],
   brand: { "@type": "Brand", name: "Gabetti" },
   knowsAbout: [
-    "Compravendita immobiliare",
+    "Vendita di immobili per conto dei proprietari",
     "Valutazione immobiliare",
     "Nuove costruzioni",
     "Mercato immobiliare Napoli nord",

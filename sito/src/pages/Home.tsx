@@ -18,6 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SeoHead from "@/components/SeoHead";
+import MarchioStorico from "@/components/MarchioStorico";
 import { WhatsAppIcon, InstagramIcon, FacebookIcon } from "@/components/SocialIcons";
 import logo from "@/assets/gabetti-logo.png";
 import { agencies } from "@/data/agencies";
@@ -64,7 +65,7 @@ const faqs = [
   },
   {
     q: "Di cosa si occupano le agenzie Gabetti di Napoli nord?",
-    a: "Vendita e acquisto di case, affitti, valutazione gratuita dell'immobile basata sui prezzi reali di vendita in zona, appartamenti di nuova costruzione (cantieri a Mugnano in Via Pietro Nenni e Via IV Martiri), consulenza su mutuo, assicurazione e pratiche tecniche.",
+    a: "Vendono case per conto dei proprietari: valutano gratis l'immobile sui prezzi reali di vendita in zona, lo prendono in incarico e lo portano sul mercato fino al rogito. Si occupano anche di affitti, appartamenti di nuova costruzione (cantieri a Mugnano in Via Pietro Nenni e Via IV Martiri), consulenza su mutuo, assicurazione e pratiche tecniche.",
   },
   {
     q: "Quanto costa la valutazione di una casa con Gabetti?",
@@ -72,7 +73,7 @@ const faqs = [
   },
   {
     q: "Che differenza c'è tra Gabetti e Gabetti Franchising Gruppo ADG?",
-    a: "Gabetti è il marchio immobiliare nazionale, nato nel 1950. Le agenzie Gabetti Franchising sono affiliate indipendenti: il Gruppo ADG gestisce le cinque sedi di Napoli nord e unisce gli strumenti e la rete del marchio alla conoscenza diretta del territorio.",
+    a: "Gabetti è il marchio immobiliare nazionale nato nel 1950 e iscritto nel registro dei Marchi Storici di interesse nazionale. Le agenzie Gabetti Franchising sono affiliate indipendenti: il Gruppo ADG gestisce le cinque sedi di Napoli nord e unisce gli strumenti e la rete del marchio alla conoscenza diretta del territorio.",
   },
 ];
 
@@ -208,8 +209,8 @@ const Hero = () => {
             className="hero-fade mt-7 max-w-2xl text-base leading-relaxed text-white/85 md:text-xl"
             style={{ ["--d" as string]: showIntro ? "2.5s" : "0.8s" }}
           >
-            Cinque sedi Gabetti tra Marano, Mugnano, Villaricca, Qualiano, Giugliano e Frattamaggiore. Vendiamo e
-            valutiamo case con consulenti che conoscono ogni strada del quartiere.
+            Cinque sedi Gabetti tra Marano, Mugnano, Villaricca, Qualiano, Giugliano e Frattamaggiore. Valutiamo gratis
+            la tua casa e la vendiamo al prezzo giusto, con consulenti che conoscono ogni strada del quartiere.
           </p>
           <div
             className="hero-fade mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
@@ -398,7 +399,7 @@ const Home = () => {
   ];
 
   const pillars = [
-    { icon: ShieldCheck, title: "Un marchio dal 1950", text: "Gabetti è uno dei nomi storici dell'immobiliare italiano: metodi, strumenti e tutele di una rete nazionale." },
+    { icon: ShieldCheck, title: "Un marchio dal 1950", text: "Gabetti è Marchio Storico di interesse nazionale, iscritto nel registro del Ministero delle Imprese e del Made in Italy: metodi, strumenti e tutele di una rete nazionale." },
     { icon: Users, title: "Consulenti del posto", text: "Chi ti segue lavora nel tuo comune: conosce le strade, i palazzi e chi sta cercando casa in zona." },
     { icon: Sparkles, title: "Prezzi reali, zero pressioni", text: "Partiamo dalle vendite concluse negli ultimi mesi, non dalle richieste degli annunci. E decidi tu, con calma." },
   ];
@@ -407,7 +408,7 @@ const Home = () => {
     <>
       <SeoHead
         title="Agenzia Immobiliare Napoli Nord | Gabetti Marano, Mugnano, Giugliano"
-        description="Gabetti Franchising Gruppo ADG: 5 agenzie immobiliari a Marano, Mugnano, Villaricca-Qualiano, Giugliano e Frattamaggiore. Vendita, acquisto, nuove costruzioni e valutazione casa gratuita a Napoli nord."
+        description="Gabetti Franchising Gruppo ADG: 5 agenzie immobiliari a Marano, Mugnano, Villaricca-Qualiano, Giugliano e Frattamaggiore. Valutazione casa gratuita e vendita del tuo immobile, affitti e nuove costruzioni a Napoli nord."
         canonical="/"
         jsonLd={[
           organizationSchema,
@@ -437,6 +438,9 @@ const Home = () => {
               <h2 className="reveal mt-5 text-4xl font-extralight leading-[1.1] md:text-5xl" style={{ ["--d" as string]: "100ms" }}>
                 Il marchio Gabetti, <span className="font-bold text-primary">radicato a Napoli nord.</span>
               </h2>
+              <div className="reveal mt-10 border-l-2 border-primary pl-5" style={{ ["--d" as string]: "200ms" }}>
+                <MarchioStorico />
+              </div>
             </div>
             <div className="space-y-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               <p className="reveal" style={{ ["--d" as string]: "150ms" }}>
@@ -445,7 +449,8 @@ const Home = () => {
                 Villaricca-Qualiano, Giugliano in Campania e Frattamaggiore.
               </p>
               <p className="reveal" style={{ ["--d" as string]: "250ms" }}>
-                Seguiamo chi vende, chi compra e chi affitta casa, e accompagniamo i cantieri di nuova costruzione a Mugnano.
+                Valutiamo gratuitamente la casa dei proprietari, la prendiamo in incarico e la portiamo sul mercato per
+                venderla al prezzo giusto. Seguiamo anche gli affitti e i cantieri di nuova costruzione a Mugnano.
                 Uniamo gli strumenti di un marchio nazionale alla cosa che conta di più in questo mestiere: conoscere il
                 territorio da dentro.
               </p>
