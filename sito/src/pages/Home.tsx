@@ -55,15 +55,15 @@ const allComuni = agencies.flatMap((a) =>
 
 const faqs = [
   {
-    q: "Dove si trovano le agenzie Gabetti a Napoli nord?",
-    a: "Gabetti Franchising Gruppo ADG ha cinque agenzie immobiliari nell'area a nord di Napoli: Marano di Napoli, Mugnano di Napoli, Villaricca-Qualiano, Giugliano in Campania e Frattamaggiore. Ogni agenzia segue i comuni vicini con consulenti che lavorano nella zona.",
+    q: "Dove si trovano le agenzie Gabetti del Gruppo ADG?",
+    a: "Oggi Gabetti Franchising Gruppo ADG ha cinque agenzie immobiliari nell'area a nord di Napoli: Marano di Napoli, Mugnano di Napoli, Villaricca-Qualiano, Giugliano in Campania e Frattamaggiore. Ogni agenzia segue i comuni vicini con consulenti che lavorano nella zona, e la rete è in crescita.",
   },
   {
     q: "In quali comuni operano le agenzie Gabetti del Gruppo ADG?",
     a: `Seguiamo compravendite e valutazioni a ${allComuni.map((c) => c.name).join(", ")}.`,
   },
   {
-    q: "Di cosa si occupano le agenzie Gabetti di Napoli nord?",
+    q: "Di cosa si occupano le agenzie Gabetti del Gruppo ADG?",
     a: "Vendono case per conto dei proprietari: valutano gratis l'immobile sui prezzi reali di vendita in zona, lo prendono in incarico e lo portano sul mercato fino al rogito. Si occupano anche di affitti, appartamenti di nuova costruzione (cantieri a Mugnano in Via Pietro Nenni e Via IV Martiri), consulenza su mutuo, assicurazione e pratiche tecniche.",
   },
   {
@@ -72,7 +72,7 @@ const faqs = [
   },
   {
     q: "Che differenza c'è tra Gabetti e Gabetti Franchising Gruppo ADG?",
-    a: "Gabetti è il marchio immobiliare nazionale nato nel 1950 e iscritto nel registro dei Marchi Storici di interesse nazionale. Le agenzie Gabetti Franchising sono affiliate indipendenti: il Gruppo ADG gestisce le cinque sedi di Napoli nord e unisce gli strumenti e la rete del marchio alla conoscenza diretta del territorio.",
+    a: "Gabetti è il marchio immobiliare nazionale nato nel 1950 e iscritto nel registro dei Marchi Storici di interesse nazionale. Le agenzie Gabetti Franchising sono affiliate indipendenti: il Gruppo ADG gestisce la propria rete di agenzie e unisce gli strumenti e la rete del marchio alla conoscenza diretta del territorio.",
   },
 ];
 
@@ -169,7 +169,7 @@ const Hero = () => {
   return (
     <section
       className="relative flex min-h-[100svh] flex-col overflow-hidden bg-neutral-950 text-white"
-      aria-label="Gabetti Franchising Napoli Nord"
+      aria-label="Gabetti Franchising Gruppo ADG"
     >
       <video
         ref={videoRef}
@@ -207,7 +207,7 @@ const Hero = () => {
         <div className="max-w-4xl" style={{ ["--d" as string]: showIntro ? "2.1s" : "0.5s" }}>
           <p className="hero-fade mb-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/80 md:text-xs">
             <span className="block h-px w-10 bg-primary" />
-            Gabetti Franchising · Gruppo ADG
+            Gabetti Franchising
           </p>
           <h1
             className="text-[2.6rem] font-extralight leading-[1.02] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.5rem]"
@@ -217,7 +217,7 @@ const Hero = () => {
               <Words text="Agenzie immobiliari" />
             </span>
             <span className="block font-bold">
-              <Words text="a Napoli Nord." offset={2} />
+              <Words text={"Gabetti Gruppo\u00A0ADG."} offset={2} />
             </span>
           </h1>
           <p
@@ -274,7 +274,7 @@ const Hero = () => {
         <div className="intro-curtain pointer-events-none fixed inset-0 z-[60] flex items-center justify-center bg-primary" aria-hidden="true">
           <div className="intro-logo flex flex-col items-center gap-5">
             <img src={logo} alt="" className="h-20 w-auto brightness-0 invert md:h-28" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.4em] text-white/80">Napoli Nord</span>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.4em] text-white/80">Gruppo ADG</span>
           </div>
         </div>
       )}
@@ -294,7 +294,7 @@ const Sedi = () => {
           <div>
             <Eyebrow light>Le nostre sedi</Eyebrow>
             <h2 className="reveal mt-5 text-4xl font-extralight leading-tight md:text-6xl" style={{ ["--d" as string]: "100ms" }}>
-              Cinque agenzie, <span className="font-bold">un solo territorio.</span>
+              Cinque agenzie, <span className="font-bold">un'unica rete.</span>
             </h2>
           </div>
           <p className="reveal text-white/70 md:text-lg" style={{ ["--d" as string]: "200ms" }}>
@@ -408,7 +408,7 @@ const Home = () => {
 
   const services = [
     { to: "/vendicasa", icon: HomeIcon, title: "Vendi casa", text: "Valutazione gratuita sui prezzi reali di vendita della tua zona, poi un piano per vendere al prezzo giusto." },
-    ...(compraOn ? [{ to: "/compra", icon: Search, title: "Compra casa", text: "Gli immobili in vendita a Napoli nord, scelti e verificati dalle nostre agenzie." }] : []),
+    ...(compraOn ? [{ to: "/compra", icon: Search, title: "Compra casa", text: "Gli immobili in vendita nelle nostre zone, scelti e verificati dalle nostre agenzie." }] : []),
     { to: "/nuove-costruzioni", icon: Building2, title: "Nuove costruzioni", text: "Appartamenti nuovi a Mugnano, in Via Pietro Nenni e Via IV Martiri, con assistenza su mutuo e capitolato." },
     { to: "/servizi", icon: KeyRound, title: "Tutti i servizi", text: "Affitti, mutui, assicurazioni, utenze e pratiche tecniche: un solo riferimento per la casa." },
   ];
@@ -422,8 +422,8 @@ const Home = () => {
   return (
     <>
       <SeoHead
-        title="Agenzia Immobiliare Napoli Nord | Gabetti Marano, Mugnano, Giugliano"
-        description="Gabetti Franchising Gruppo ADG: 5 agenzie immobiliari a Marano, Mugnano, Villaricca-Qualiano, Giugliano e Frattamaggiore. Valutazione casa gratuita e vendita del tuo immobile, affitti e nuove costruzioni a Napoli nord."
+        title="Agenzie Immobiliari Gabetti Gruppo ADG | Marano, Mugnano, Giugliano"
+        description="Gabetti Franchising Gruppo ADG: agenzie immobiliari a Marano, Mugnano, Villaricca-Qualiano, Giugliano e Frattamaggiore. Valutazione casa gratuita e vendita del tuo immobile, affitti e nuove costruzioni."
         canonical="/"
         jsonLd={[
           organizationSchema,
@@ -451,13 +451,13 @@ const Home = () => {
             <div>
               <Eyebrow>Chi siamo</Eyebrow>
               <h2 className="reveal mt-5 text-4xl font-extralight leading-[1.1] md:text-5xl" style={{ ["--d" as string]: "100ms" }}>
-                Il marchio Gabetti, <span className="font-bold text-primary">radicato a Napoli nord.</span>
+                Il marchio Gabetti, <span className="font-bold text-primary">radicato nell'area Nord di Napoli.</span>
               </h2>
             </div>
             <div className="space-y-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               <p className="reveal" style={{ ["--d" as string]: "150ms" }}>
-                <strong className="font-semibold text-foreground">Gabetti Franchising Gruppo ADG</strong> è la rete di cinque
-                agenzie immobiliari Gabetti nell'area a nord di Napoli: Marano di Napoli, Mugnano di Napoli,
+                <strong className="font-semibold text-foreground">Gabetti Franchising Gruppo ADG</strong> è la rete di agenzie
+                immobiliari Gabetti del Gruppo ADG, oggi presente a Marano di Napoli, Mugnano di Napoli,
                 Villaricca-Qualiano, Giugliano in Campania e Frattamaggiore.
               </p>
               <p className="reveal" style={{ ["--d" as string]: "250ms" }}>
@@ -474,7 +474,7 @@ const Home = () => {
             <dl className="grid grid-cols-2 gap-y-12 border-t border-border pt-12 md:grid-cols-4">
               {[
                 { n: <Counter to={1950} />, l: "l'anno in cui nasce Gabetti" },
-                { n: <Counter to={5} />, l: "agenzie a Napoli nord" },
+                { n: <Counter to={5} />, l: "agenzie nella rete" },
                 { n: <Counter to={allComuni.length} />, l: "comuni e quartieri seguiti" },
                 { n: <Counter to={500} prefix="+" />, l: "immobili venduti in zona" },
               ].map((s, i) => (
@@ -522,7 +522,7 @@ const Home = () => {
           <div className="container">
             <Eyebrow>Dove operiamo</Eyebrow>
             <h2 className="reveal mt-5 max-w-3xl text-4xl font-extralight leading-tight md:text-5xl" style={{ ["--d" as string]: "100ms" }}>
-              Le nostre zone di competenza <span className="font-bold">a nord di Napoli.</span>
+              Le nostre zone <span className="font-bold">di competenza.</span>
             </h2>
             <p className="reveal mt-6 max-w-2xl text-lg text-muted-foreground" style={{ ["--d" as string]: "200ms" }}>
               Per ogni comune trovi prezzi al metro quadro, tempi medi di vendita e quartieri più richiesti, con la
@@ -583,7 +583,7 @@ const Home = () => {
             <div>
               <Eyebrow>Domande frequenti</Eyebrow>
               <h2 className="reveal mt-5 text-4xl font-extralight leading-tight md:text-5xl" style={{ ["--d" as string]: "100ms" }}>
-                Le agenzie Gabetti <span className="font-bold">a Napoli nord, in breve.</span>
+                Le agenzie Gabetti <span className="font-bold">del Gruppo ADG.</span>
               </h2>
             </div>
             <Accordion type="single" collapsible defaultValue="faq-0" className="reveal" style={{ ["--d" as string]: "150ms" }}>

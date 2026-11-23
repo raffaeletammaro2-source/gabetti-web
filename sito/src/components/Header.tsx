@@ -52,7 +52,7 @@ const Header = ({ overlay = false }: { overlay?: boolean }) => {
       }
     >
       <div className={`container flex items-center justify-between transition-all duration-500 ${overlay && scrolled ? "py-2" : "py-3"}`}>
-        <Link to="/" aria-label="Gabetti Franchising Napoli Nord — Home">
+        <Link to="/" aria-label="Gabetti Franchising Gruppo ADG — Home">
           <img
             src={logo}
             alt="Gabetti Franchising"

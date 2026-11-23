@@ -1,8 +1,8 @@
-# Gabetti Franchising Napoli Nord — Gruppo ADG
+# Gabetti Franchising — Gruppo ADG
 
-> Rete di 5 agenzie immobiliari a marchio Gabetti nell'area a nord di Napoli (provincia di Napoli, Campania). Valutano gratuitamente le case dei proprietari (sui prezzi reali di vendita degli ultimi 6 mesi in zona), le prendono in incarico e le portano sul mercato per venderle. Seguono anche affitti, appartamenti di nuova costruzione a Mugnano, mutui, assicurazioni e pratiche tecniche. Sito: https://gabetti-adg.it
+> Rete di agenzie immobiliari a marchio Gabetti del Gruppo ADG, oggi con cinque sedi nell'area a nord di Napoli (Campania) e in crescita. Valutano gratuitamente le case dei proprietari (sui prezzi reali di vendita degli ultimi 6 mesi in zona), le prendono in incarico e le portano sul mercato per venderle. Seguono anche affitti, appartamenti di nuova costruzione a Mugnano, mutui, assicurazioni e pratiche tecniche. Sito: https://gabetti-adg.it
 
-## Agenzie e zone servite
+## Agenzie e zone servite (oggi)
 
 - Gabetti Marano: Marano di Napoli, Calvizzano
 - Gabetti Mugnano: Mugnano di Napoli, Melito di Napoli, Chiaiano
