@@ -187,12 +187,12 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/50" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,hsl(var(--primary)/0.35),transparent_55%)]" />
 
-      {/* Marchio Storico di interesse nazionale, in alto a sinistra sopra il video */}
+      {/* Marchio Storico di interesse nazionale, in alto a destra sopra il video */}
       <div
         className="hero-fade relative z-10 pt-24 md:pt-28"
         style={{ ["--d" as string]: showIntro ? "2.3s" : "0.4s" }}
       >
-        <div className="container">
+        <div className="container flex justify-end">
           <img
             src="/img/marchio-storico-white.png"
             alt="Marchio Storico di interesse nazionale"
