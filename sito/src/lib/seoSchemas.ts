@@ -56,16 +56,16 @@ export const organizationSchema = {
   logo: `${SITE_URL}/logo.png`,
   image: `${SITE_URL}/logo.png`,
   description:
-    "Agenzie immobiliari Gabetti Franchising nell'area nord di Napoli: valutazione gratuita casa, vendita e acquisizione immobili a Marano, Mugnano, Giugliano, Villaricca, Qualiano, Frattamaggiore e comuni limitrofi.",
+    "Agenzie immobiliari Gabetti Franchising del Gruppo ADG: valutazione gratuita casa, vendita e acquisizione immobili a Marano, Mugnano, Giugliano, Villaricca, Qualiano, Frattamaggiore e comuni limitrofi.",
   areaServed: AGENCIES.flatMap((a) => a.areaServed),
   priceRange: "€€",
   sameAs: ["https://www.gabetti.it"],
   brand: { "@type": "Brand", name: "Gabetti" },
   knowsAbout: [
-    "Compravendita immobiliare",
+    "Vendita di immobili per conto dei proprietari",
     "Valutazione immobiliare",
     "Nuove costruzioni",
-    "Mercato immobiliare Napoli nord",
+    "Mercato immobiliare in provincia di Napoli",
   ],
   department: AGENCIES.map((a) => ({
     "@type": "RealEstateAgent",
@@ -89,7 +89,7 @@ export const buildLocationsSchema = (
 ) => ({
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Agenzie Gabetti Franchising a Napoli nord",
+  name: "Agenzie Gabetti Franchising del Gruppo ADG",
   numberOfItems: items.length,
   itemListElement: items.map((a, i) => ({
     "@type": "ListItem",
@@ -111,7 +111,7 @@ export const websiteSchema = {
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   url: SITE_URL,
-  name: "Gabetti Franchising Napoli Nord — Gruppo ADG",
+  name: "Gabetti Franchising — Gruppo ADG",
   inLanguage: "it-IT",
   publisher: { "@id": `${SITE_URL}/#organization` },
 };

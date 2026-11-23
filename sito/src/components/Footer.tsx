@@ -10,9 +10,9 @@ const Footer = () => (
     <div className="container">
       <div className="grid md:grid-cols-3 gap-8 mb-8 text-secondary-foreground/90">
         <div className="text-center md:text-left">
-          <img src={logo} alt="Gabetti Franchising — Agenzie immobiliari Napoli nord" className="h-12 w-auto object-contain mx-auto md:mx-0 mb-4 brightness-0 invert" loading="lazy" />
+          <img src={logo} alt="Gabetti Franchising — Gruppo ADG" className="h-12 w-auto object-contain mx-auto md:mx-0 mb-4 brightness-0 invert" loading="lazy" />
           <p className="text-sm leading-relaxed text-secondary-foreground/70">
-            Gabetti Franchising Gruppo ADG. 5 agenzie immobiliari nell'area nord di Napoli per la valutazione gratuita e la vendita della tua casa.
+            Gabetti Franchising Gruppo ADG: agenzie immobiliari per la valutazione gratuita e la vendita della tua casa.
           </p>
         </div>
         <div className="text-center md:text-left">
