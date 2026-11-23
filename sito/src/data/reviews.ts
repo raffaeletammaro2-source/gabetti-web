@@ -1,4 +1,7 @@
-// Recensioni Google delle agenzie, raccolte a mano dalle schede Google Maps il 23/11/2026.
+// Recensioni Google delle agenzie: COPIA DI RISERVA.
+// Di norma la homepage le legge in automatico da /api/recensioni (netlify/functions/recensioni.mjs,
+// Google Places API). Questi dati si vedono solo se la funzione non risponde (chiave mancante, errore).
+// Raccolte a mano dalle schede Google Maps il 23/11/2026.
 // Testi originali (accorciati con "…" dove lunghi), autore con nome e iniziale del cognome.
 // Per aggiornare: aprire la scheda Google dell'agenzia, copiare voto, numero di recensioni e
 // le recensioni nuove. Non inventare né modificare testi: devono restare quelli pubblicati su Google.
@@ -16,6 +19,10 @@ export type Review = {
   agency: string;
   stars: number;
   text: string;
+  /** Solo nelle recensioni lette in automatico da Google */
+  authorUrl?: string | null;
+  when?: string | null;
+  url?: string | null;
 };
 
 export const REVIEWS_UPDATED = "23 novembre 2026";
@@ -90,7 +97,9 @@ export const reviews: Review[] = [
   },
 ];
 
-export const totalReviews = agencyRatings.reduce((s, a) => s + a.count, 0);
+export const sumReviews = (list: AgencyRating[]) => list.reduce((s, a) => s + a.count, 0);
 /** Media pesata sul numero di recensioni di ogni scheda, arrotondata a un decimale. */
-export const averageRating =
-  Math.round((agencyRatings.reduce((s, a) => s + a.rating * a.count, 0) / totalReviews) * 10) / 10;
+export const weightedAverage = (list: AgencyRating[]) => {
+  const total = sumReviews(list);
+  return total ? Math.round((list.reduce((s, a) => s + a.rating * a.count, 0) / total) * 10) / 10 : 0;
+};

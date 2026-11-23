@@ -49,6 +49,16 @@ Webhook per landing: se una landing di `cantieri/<slug>/` deve andare a un workf
 | `cantieri/via-pietro-nenni-mugnano/` | `GHL_WEBHOOK_URL_VIA_PIETRO_NENNI_MUGNANO` |
 | Sito: form "Valuta casa" (`/.netlify/functions/sito-form`) | `GHL_WEBHOOK_URL_VALUTAZIONE` |
 | Sito: form "Lavora con noi" (`/.netlify/functions/sito-form`) | `GHL_WEBHOOK_URL_CANDIDATURE` |
+
+### Recensioni Google in homepage ("Dicono di noi")
+`netlify/functions/recensioni.mjs` risponde su `/api/recensioni`: legge da Google Places API (New) voto, numero e
+recensioni (massimo 5 per scheda, solo da 4 stelle in su) delle agenzie e le tiene in cache sulla CDN per 12 ore.
+Se la funzione non risponde, la homepage mostra la copia salvata in `sito/src/data/reviews.ts`.
+
+| Variabile | Uso |
+|---|---|
+| `GOOGLE_PLACES_API_KEY` | Chiave di Google Cloud con "Places API (New)" attiva. Obbligatoria. |
+| `GOOGLE_PLACE_ID_MARANO`, `_MUGNANO`, `_VILLARICCA`, `_FRATTAMAGGIORE` | Facoltative: Place ID fissi. Se mancano, la funzione li cerca per nome e indirizzo. |
 Mai scriverlo nei file.
 
 ## Anteprima in locale

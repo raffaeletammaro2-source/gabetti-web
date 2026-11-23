@@ -25,7 +25,7 @@ import { WhatsAppIcon, InstagramIcon, FacebookIcon } from "@/components/SocialIc
 import logo from "@/assets/gabetti-logo.png";
 import { agencies } from "@/data/agencies";
 import { cities } from "@/data/cities";
-import { agencyRatings, averageRating, reviews, totalReviews, REVIEWS_UPDATED } from "@/data/reviews";
+import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 import { useReveal } from "@/hooks/useReveal";
 import { useCompraEnabled } from "@/lib/siteSettings";
 import { trackCtaClick, trackWhatsAppClick } from "@/lib/tracking";
@@ -435,6 +435,7 @@ const GoogleG = ({ className = "h-5 w-5" }: { className?: string }) => (
 
 const DiconoDiNoi = () => {
   const rowRef = useRef<HTMLDivElement>(null);
+  const { ratings: agencyRatings, reviews, total: totalReviews, average: averageRating, updatedLabel } = useGoogleReviews();
   const scroll = (dir: number) => {
     const row = rowRef.current;
     if (!row) return;
@@ -496,14 +497,28 @@ const DiconoDiNoi = () => {
             data-card
             className="flex w-[85vw] max-w-[380px] shrink-0 snap-start flex-col rounded-2xl border border-border bg-muted/40 p-7 sm:w-[360px]"
           >
-            <div className="flex items-center justify-between">
+            <div className="mb-1 flex items-center justify-between">
               <Stars value={r.stars} />
               <GoogleG className="h-4 w-4" />
             </div>
-            <blockquote className="mt-5 flex-1 text-[15px] leading-relaxed text-foreground/85">“{r.text}”</blockquote>
-            <figcaption className="mt-6 border-t border-border pt-4 text-sm">
-              <span className="block font-semibold">{r.author}</span>
-              <span className="text-muted-foreground">{r.agency}</span>
+            <blockquote className="mt-5 line-clamp-[9] text-[15px] leading-relaxed text-foreground/85">“{r.text}”</blockquote>
+            {r.url && (
+              <a href={r.url} target="_blank" rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+                Leggi su Google <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            )}
+            <span className="block min-h-6 flex-1" aria-hidden="true" />
+            <figcaption className="border-t border-border pt-4 text-sm">
+              {r.authorUrl ? (
+                <a href={r.authorUrl} target="_blank" rel="noopener noreferrer" className="block font-semibold hover:underline">{r.author}</a>
+              ) : (
+                <span className="block font-semibold">{r.author}</span>
+              )}
+              <span className="text-muted-foreground">
+                {r.agency}
+                {r.when ? ` · ${r.when}` : ""}
+              </span>
             </figcaption>
           </figure>
         ))}
@@ -511,7 +526,7 @@ const DiconoDiNoi = () => {
 
       <div className="container mt-6 flex flex-wrap items-center justify-between gap-4">
         <p className="text-xs text-muted-foreground">
-          Recensioni reali pubblicate su Google, aggiornate al {REVIEWS_UPDATED}. Le trovi tutte sulle schede delle agenzie.
+          Recensioni reali pubblicate su Google, aggiornate al {updatedLabel}. Le trovi tutte sulle schede delle agenzie.
         </p>
         <div className="flex gap-2">
           <button type="button" onClick={() => scroll(-1)} aria-label="Recensioni precedenti"
