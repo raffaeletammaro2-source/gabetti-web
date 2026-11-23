@@ -18,7 +18,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SeoHead from "@/components/SeoHead";
-import MarchioStorico from "@/components/MarchioStorico";
 import { WhatsAppIcon, InstagramIcon, FacebookIcon } from "@/components/SocialIcons";
 import logo from "@/assets/gabetti-logo.png";
 import { agencies } from "@/data/agencies";
@@ -169,7 +168,7 @@ const Hero = () => {
 
   return (
     <section
-      className="relative flex min-h-[100svh] items-end overflow-hidden bg-neutral-950 text-white"
+      className="relative flex min-h-[100svh] flex-col overflow-hidden bg-neutral-950 text-white"
       aria-label="Gabetti Franchising Napoli Nord"
     >
       <video
@@ -188,7 +187,23 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/50" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,hsl(var(--primary)/0.35),transparent_55%)]" />
 
-      <div className="container relative z-10 pb-20 pt-40 md:pb-28">
+      {/* Marchio Storico di interesse nazionale, in alto a sinistra sopra il video */}
+      <div
+        className="hero-fade relative z-10 pt-24 md:pt-28"
+        style={{ ["--d" as string]: showIntro ? "2.3s" : "0.4s" }}
+      >
+        <div className="container">
+          <img
+            src="/img/marchio-storico-white.png"
+            alt="Marchio Storico di interesse nazionale"
+            width={1080}
+            height={1080}
+            className="h-20 w-20 object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] md:h-24 md:w-24"
+          />
+        </div>
+      </div>
+
+      <div className="container relative z-10 mt-auto pb-24 pt-10 md:pb-28">
         <div className="max-w-4xl" style={{ ["--d" as string]: showIntro ? "2.1s" : "0.5s" }}>
           <p className="hero-fade mb-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/80 md:text-xs">
             <span className="block h-px w-10 bg-primary" />
@@ -438,9 +453,6 @@ const Home = () => {
               <h2 className="reveal mt-5 text-4xl font-extralight leading-[1.1] md:text-5xl" style={{ ["--d" as string]: "100ms" }}>
                 Il marchio Gabetti, <span className="font-bold text-primary">radicato a Napoli nord.</span>
               </h2>
-              <div className="reveal mt-10 border-l-2 border-primary pl-5" style={{ ["--d" as string]: "200ms" }}>
-                <MarchioStorico />
-              </div>
             </div>
             <div className="space-y-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               <p className="reveal" style={{ ["--d" as string]: "150ms" }}>
