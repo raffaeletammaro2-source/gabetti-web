@@ -409,7 +409,7 @@ const Home = () => {
   const services = [
     { to: "/vendicasa", icon: HomeIcon, title: "Vendi casa", text: "Valutazione gratuita sui prezzi reali di vendita della tua zona, poi un piano per vendere al prezzo giusto." },
     ...(compraOn ? [{ to: "/compra", icon: Search, title: "Compra casa", text: "Gli immobili in vendita nelle nostre zone, scelti e verificati dalle nostre agenzie." }] : []),
-    { to: "/nuove-costruzioni", icon: Building2, title: "Nuove costruzioni", text: "Appartamenti nuovi a Mugnano, in Via Pietro Nenni e Via IV Martiri, con assistenza su mutuo e capitolato." },
+    { to: "/nuove-costruzioni", icon: Building2, title: "Nuove costruzioni", text: "Seguiamo la vendita dei cantieri di nuova costruzione per conto dei costruttori, dal lancio al rogito, con assistenza agli acquirenti su mutuo e capitolato." },
     { to: "/servizi", icon: KeyRound, title: "Tutti i servizi", text: "Affitti, mutui, assicurazioni, utenze e pratiche tecniche: un solo riferimento per la casa." },
   ];
 
