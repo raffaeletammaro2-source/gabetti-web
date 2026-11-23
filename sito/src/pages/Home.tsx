@@ -450,7 +450,7 @@ const Home = () => {
               </p>
               <p className="reveal" style={{ ["--d" as string]: "250ms" }}>
                 Valutiamo gratuitamente la casa dei proprietari, la prendiamo in incarico e la portiamo sul mercato per
-                venderla al prezzo giusto. Seguiamo anche gli affitti e i cantieri di nuova costruzione a Mugnano.
+                venderla al prezzo giusto. Seguiamo anche gli affitti.
                 Uniamo gli strumenti di un marchio nazionale alla cosa che conta di più in questo mestiere: conoscere il
                 territorio da dentro.
               </p>
