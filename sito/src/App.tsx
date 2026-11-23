@@ -6,7 +6,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 import CookieBanner from "@/components/CookieBanner";
-import Index from "./pages/Index.tsx";
+import Home from "./pages/Home.tsx";
+import VendiCasa from "./pages/VendiCasa.tsx";
+import ScrollToHash from "@/components/ScrollToHash";
 import ThankYou from "./pages/ThankYou.tsx";
 import LocalLanding from "./pages/LocalLanding.tsx";
 import NuoveCostruzioni from "./pages/NuoveCostruzioni.tsx";
@@ -32,8 +34,10 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToHash />
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/vendicasa" element={<VendiCasa />} />
             <Route path="/grazie" element={<ThankYou />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />

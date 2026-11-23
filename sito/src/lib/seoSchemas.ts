@@ -1,5 +1,5 @@
 // Centralized JSON-LD schemas for SEO + GEO (AI search) optimization.
-// Update agency addresses/phones with real data when available.
+// Telefoni = numeri WhatsApp delle agenzie (data/agencies.ts). Indirizzi da completare con il civico reale.
 
 export const SITE_URL = "https://gabetti-adg.it";
 
@@ -9,7 +9,7 @@ export const AGENCIES = [
     streetAddress: "Via Marano-Pianura",
     addressLocality: "Marano di Napoli",
     postalCode: "80016",
-    telephone: "+39-081-0000000",
+    telephone: "+39-392-649-6197",
     areaServed: ["Marano di Napoli", "Calvizzano"],
   },
   {
@@ -17,7 +17,7 @@ export const AGENCIES = [
     streetAddress: "Via Napoli",
     addressLocality: "Mugnano di Napoli",
     postalCode: "80018",
-    telephone: "+39-081-0000000",
+    telephone: "+39-351-231-9735",
     areaServed: ["Mugnano di Napoli", "Melito di Napoli", "Chiaiano"],
   },
   {
@@ -25,7 +25,7 @@ export const AGENCIES = [
     streetAddress: "Corso Italia",
     addressLocality: "Villaricca",
     postalCode: "80010",
-    telephone: "+39-081-0000000",
+    telephone: "+39-345-227-1506",
     areaServed: ["Villaricca", "Qualiano"],
   },
   {
@@ -33,7 +33,7 @@ export const AGENCIES = [
     streetAddress: "Corso Durante",
     addressLocality: "Frattamaggiore",
     postalCode: "80027",
-    telephone: "+39-081-0000000",
+    telephone: "+39-331-416-2642",
     areaServed: ["Frattamaggiore", "Frattaminore", "Grumo Nevano", "Afragola", "Sant'Arpino"],
   },
   {
@@ -41,7 +41,7 @@ export const AGENCIES = [
     streetAddress: "Corso Campano",
     addressLocality: "Giugliano in Campania",
     postalCode: "80014",
-    telephone: "+39-081-0000000",
+    telephone: "+39-345-227-1506",
     areaServed: ["Giugliano in Campania", "Sant'Antimo"],
   },
 ];
@@ -59,7 +59,14 @@ export const organizationSchema = {
     "Agenzie immobiliari Gabetti Franchising nell'area nord di Napoli: valutazione gratuita casa, vendita e acquisizione immobili a Marano, Mugnano, Giugliano, Villaricca, Qualiano, Frattamaggiore e comuni limitrofi.",
   areaServed: AGENCIES.flatMap((a) => a.areaServed),
   priceRange: "€€",
-  sameAs: ["https://www.gabetti.it", "https://www.facebook.com/", "https://www.instagram.com/"],
+  sameAs: ["https://www.gabetti.it"],
+  brand: { "@type": "Brand", name: "Gabetti" },
+  knowsAbout: [
+    "Compravendita immobiliare",
+    "Valutazione immobiliare",
+    "Nuove costruzioni",
+    "Mercato immobiliare Napoli nord",
+  ],
   department: AGENCIES.map((a) => ({
     "@type": "RealEstateAgent",
     name: a.name,
@@ -76,12 +83,35 @@ export const organizationSchema = {
   })),
 };
 
+/** Elenco delle sedi per la homepage: ogni agenzia come LocalBusiness con area servita. */
+export const buildLocationsSchema = (
+  items: { name: string; town: string; comuni: string[]; whatsapp: string; sameAs: string[] }[],
+) => ({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Agenzie Gabetti Franchising a Napoli nord",
+  numberOfItems: items.length,
+  itemListElement: items.map((a, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "RealEstateAgent",
+      name: a.name,
+      telephone: "+" + a.whatsapp.replace(/\D/g, ""),
+      address: { "@type": "PostalAddress", addressLocality: a.town, addressRegion: "NA", addressCountry: "IT" },
+      areaServed: a.comuni.map((c) => ({ "@type": "City", name: c })),
+      sameAs: a.sameAs,
+      parentOrganization: { "@id": `${SITE_URL}/#organization` },
+    },
+  })),
+});
+
 export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   url: SITE_URL,
-  name: "Gabetti Franchising — Valutazione Casa Napoli Nord",
+  name: "Gabetti Franchising Napoli Nord — Gruppo ADG",
   inLanguage: "it-IT",
   publisher: { "@id": `${SITE_URL}/#organization` },
 };
