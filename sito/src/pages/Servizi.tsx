@@ -181,7 +181,7 @@ const Servizi = () => (
           <h2 className="text-2xl md:text-4xl font-extrabold text-primary-foreground mb-4">Vuoi sapere quanto vale la tua casa?</h2>
           <p className="text-primary-foreground/90 mb-6">Valutazione gratuita, basata sui prezzi reali della tua zona.</p>
           <Link
-            to="/#form-section"
+            to="/vendicasa#form-section"
             onClick={() => trackCtaClick("servizi_cta")}
             className="inline-flex items-center gap-2 bg-background text-primary font-bold py-4 px-8 rounded-lg hover:opacity-90"
           >

@@ -30,9 +30,9 @@ const Footer = () => (
         <div className="text-center md:text-left">
           <h3 className="font-bold mb-3 text-sm uppercase tracking-wide">Link utili</h3>
           <ul className="space-y-1.5 text-sm text-secondary-foreground/75">
-            <li><a href="/#come-funziona" className="hover:underline">Come funziona</a></li>
-            <li><a href="/#faq" className="hover:underline">Domande frequenti</a></li>
-            <li><a href="/#form-section" onClick={() => trackCtaClick("Richiedi valutazione gratuita")} className="hover:underline">Richiedi valutazione gratuita</a></li>
+            <li><a href="/vendicasa#come-funziona" className="hover:underline">Come funziona</a></li>
+            <li><a href="/vendicasa#faq" className="hover:underline">Domande frequenti</a></li>
+            <li><a href="/vendicasa#form-section" onClick={() => trackCtaClick("Richiedi valutazione gratuita")} className="hover:underline">Richiedi valutazione gratuita</a></li>
           </ul>
           <a href={CRM_WHATSAPP} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick(CRM_WHATSAPP)}
             className="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-secondary-foreground/90 hover:text-secondary-foreground">

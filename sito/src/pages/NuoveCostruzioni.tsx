@@ -107,7 +107,7 @@ const NuoveCostruzioni = () => (
         <div className="container text-center text-primary-foreground">
           <h2 className="text-2xl md:text-3xl font-extrabold mb-3">Vuoi maggiori informazioni?</h2>
           <p className="mb-6 opacity-90">Lascia i tuoi dati: un consulente Gabetti ti ricontatta entro poche ore.</p>
-          <a href="/#form-section" onClick={() => trackCtaClick("Info nuove costruzioni")} className="inline-block bg-primary-foreground text-primary font-bold py-4 px-8 rounded-lg hover:opacity-90">
+          <a href="/vendicasa#form-section" onClick={() => trackCtaClick("Info nuove costruzioni")} className="inline-block bg-primary-foreground text-primary font-bold py-4 px-8 rounded-lg hover:opacity-90">
             Contattaci
           </a>
         </div>

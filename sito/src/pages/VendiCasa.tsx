@@ -17,12 +17,12 @@ import {
   reviewsAggregateSchema,
 } from "@/lib/seoSchemas";
 
-const Index = () => (
+const VendiCasa = () => (
   <>
     <SeoHead
       title="Valutazione Casa Gratuita Napoli Nord | Gabetti Franchising"
       description="Scopri quanto vale la tua casa a Marano, Mugnano, Giugliano, Villaricca, Qualiano, Frattamaggiore. Valutazione immobiliare gratuita, basata su prezzi reali. Senza impegno."
-      canonical="/"
+      canonical="/vendicasa"
       jsonLd={[
         organizationSchema,
         websiteSchema,
@@ -47,4 +47,4 @@ const Index = () => (
   </>
 );
 
-export default Index;
+export default VendiCasa;
