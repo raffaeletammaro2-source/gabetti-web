@@ -103,11 +103,6 @@ TR_STEP = custom_event("CE - form_step", "form_step")
 TR_CONSENT_MK = custom_event("CE - consenso marketing dato", "cookie_consent_update",
                              [cond("EQUALS", V["consent_marketing"], "true")])
 
-TR_HISTORY = nid("trigger", 200)
-triggers.append({"accountId": ACC, "containerId": CON, "triggerId": TR_HISTORY,
-                 "name": "Cambio pagina (pushState / popstate)", "type": "HISTORY_CHANGE",
-                 "filter": [cond("MATCH_REGEX", "{{History Source}}", "^(pushState|popstate)$")],
-                 "fingerprint": "0"})
 
 # ---------- Tag ----------
 tags = []
@@ -137,8 +132,8 @@ tag("GA4 - Google tag", "googtag",
     [T("tagId", V_GA4), table("configSettingsTable", [("server_container_url", V_SGTM)])],
     [INIT_ALL_PAGES],
     notes="Unico tag di configurazione GA4. Manda la page_view del primo caricamento. "
-          "In GA4 disattivare 'Modifiche della pagina in base agli eventi della cronologia del browser' "
-          "nella misurazione avanzata: i cambi pagina li manda il tag 'GA4 - page_view (cambio pagina)'.")
+          "I cambi pagina del sito React li manda GA4 da solo: lasciare ATTIVA nella misurazione avanzata "
+          "'Modifiche della pagina in base agli eventi della cronologia del browser'.")
 
 
 def ga4_event(name, event_name, params, firing):
@@ -148,8 +143,6 @@ def ga4_event(name, event_name, params, firing):
         firing)
 
 
-ga4_event("GA4 - page_view (cambio pagina)", "page_view",
-          [("page_location", "{{Page URL}}"), ("page_title", "{{Page Title}}")], [TR_HISTORY])
 ga4_event("GA4 - generate_lead", "generate_lead",
           [("form_name", V["form_name"]), ("lead_category", V["lead_category"]), ("lead_type", V["lead_type"]),
            ("project", V["project"]), ("value", V["value"]), ("currency", V["currency"]),
@@ -174,17 +167,13 @@ PIXEL_BASE = """<script>
   n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
   t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
   document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  // I cambi pagina li manda il tag "Meta - PageView (cambio pagina)": niente tracciamento automatico.
-  fbq.disablePushState = true;
+  // I cambi pagina del sito React li traccia il Pixel da solo (pushState).
+  // NON usare fbq.disablePushState: il Pixel scarterebbe le PageView successive alla prima.
   // Niente eventi automatici sui clic (SubscribedButtonClick)
   fbq('set', 'autoConfig', false, {{const - Meta Pixel ID}});
   fbq('init', {{const - Meta Pixel ID}});
   fbq('track', 'PageView');
 })();
-</script>"""
-
-PIXEL_PAGEVIEW = """<script>
-  if (window.fbq && window.__gabettiPixel) fbq('track', 'PageView');
 </script>"""
 
 
@@ -209,7 +198,6 @@ LEAD_DATA = """{
 
 tag("Meta - Pixel base + PageView", "html", html(PIXEL_BASE), [ALL_PAGES, TR_CONSENT_MK],
     consent=NEEDS_AD_STORAGE)
-tag("Meta - PageView (cambio pagina)", "html", html(PIXEL_PAGEVIEW), [TR_HISTORY], consent=NEEDS_AD_STORAGE)
 tag("Meta - Lead", "html", html(pixel_event("Lead", LEAD_DATA)), [TR_LEAD_NO_VISITA], consent=NEEDS_AD_STORAGE,
     notes="Tutti i lead commerciali (vendita, nuove costruzioni, info immobile). Per ottimizzare una campagna su un "
           "solo tipo creare in Events Manager una conversione personalizzata su Lead filtrata per content_name.")
@@ -241,12 +229,7 @@ ads_conversion("Google Ads - Conversione Lead Valutazione", [TR_LEAD_VENDITA])
 ads_conversion("Google Ads - Conversione Lead Nuove costruzioni", [TR_LEAD_CANTIERI])
 
 BUILTIN = [("EVENT", "Event"), ("PAGE_URL", "Page URL"), ("PAGE_PATH", "Page Path"),
-           ("PAGE_HOSTNAME", "Page Hostname"), ("REFERRER", "Referrer"), ("HISTORY_SOURCE", "History Source"),
-           ("PAGE_TITLE", "Page Title")]
-# PAGE_TITLE non è una variabile integrata: la creiamo come variabile JavaScript
-BUILTIN = [b for b in BUILTIN if b[0] != "PAGE_TITLE"]
-variables.append({"accountId": ACC, "containerId": CON, "variableId": nid("variable", 100), "name": "Page Title",
-                  "type": "j", "parameter": [T("name", "document.title")], "fingerprint": "0"})
+           ("PAGE_HOSTNAME", "Page Hostname"), ("REFERRER", "Referrer")]
 
 out = {
     "exportFormatVersion": 2,
