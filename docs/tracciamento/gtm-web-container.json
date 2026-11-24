@@ -1,6 +1,6 @@
 {
   "exportFormatVersion": 2,
-  "exportTime": "2026-11-24 12:12:03",
+  "exportTime": "2026-11-24 12:52:56",
   "containerVersion": {
     "path": "accounts/0/containers/0/versions/0",
     "accountId": "0",
@@ -60,80 +60,12 @@
           "type": "MAP"
         },
         "fingerprint": "0",
-        "notes": "Unico tag di configurazione GA4. Manda la page_view del primo caricamento. In GA4 disattivare 'Modifiche della pagina in base agli eventi della cronologia del browser' nella misurazione avanzata: i cambi pagina li manda il tag 'GA4 - page_view (cambio pagina)'."
+        "notes": "Unico tag di configurazione GA4. Manda la page_view del primo caricamento. I cambi pagina del sito React li manda GA4 da solo: lasciare ATTIVA nella misurazione avanzata 'Modifiche della pagina in base agli eventi della cronologia del browser'."
       },
       {
         "accountId": "0",
         "containerId": "0",
         "tagId": "302",
-        "name": "GA4 - page_view (cambio pagina)",
-        "type": "gaawe",
-        "parameter": [
-          {
-            "type": "BOOLEAN",
-            "key": "sendEcommerceData",
-            "value": "false"
-          },
-          {
-            "type": "TEMPLATE",
-            "key": "eventName",
-            "value": "page_view"
-          },
-          {
-            "type": "TEMPLATE",
-            "key": "measurementIdOverride",
-            "value": "{{const - GA4 Measurement ID}}"
-          },
-          {
-            "type": "LIST",
-            "key": "eventSettingsTable",
-            "list": [
-              {
-                "type": "MAP",
-                "map": [
-                  {
-                    "type": "TEMPLATE",
-                    "key": "parameter",
-                    "value": "page_location"
-                  },
-                  {
-                    "type": "TEMPLATE",
-                    "key": "parameterValue",
-                    "value": "{{Page URL}}"
-                  }
-                ]
-              },
-              {
-                "type": "MAP",
-                "map": [
-                  {
-                    "type": "TEMPLATE",
-                    "key": "parameter",
-                    "value": "page_title"
-                  },
-                  {
-                    "type": "TEMPLATE",
-                    "key": "parameterValue",
-                    "value": "{{Page Title}}"
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "firingTriggerId": [
-          "211"
-        ],
-        "tagFiringOption": "ONCE_PER_EVENT",
-        "monitoringMetadata": {
-          "type": "MAP"
-        },
-        "fingerprint": "0"
-      },
-      {
-        "accountId": "0",
-        "containerId": "0",
-        "tagId": "303",
         "name": "GA4 - generate_lead",
         "type": "gaawe",
         "parameter": [
@@ -276,7 +208,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "304",
+        "tagId": "303",
         "name": "GA4 - job_application",
         "type": "gaawe",
         "parameter": [
@@ -344,7 +276,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "305",
+        "tagId": "304",
         "name": "GA4 - click contatto (WhatsApp / telefono)",
         "type": "gaawe",
         "parameter": [
@@ -412,7 +344,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "306",
+        "tagId": "305",
         "name": "GA4 - cta_click",
         "type": "gaawe",
         "parameter": [
@@ -465,7 +397,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "307",
+        "tagId": "306",
         "name": "GA4 - form_step",
         "type": "gaawe",
         "parameter": [
@@ -533,14 +465,14 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "308",
+        "tagId": "307",
         "name": "Meta - Pixel base + PageView",
         "type": "html",
         "parameter": [
           {
             "type": "TEMPLATE",
             "key": "html",
-            "value": "<script>\n(function () {\n  // Una sola PageView per caricamento: questo tag scatta su All Pages (consenso già dato)\n  // oppure quando l'utente accetta il marketing dal banner.\n  if (window.__gabettiPixel) return;\n  window.__gabettiPixel = true;\n  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?\n  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;\n  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;\n  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,\n  document,'script','https://connect.facebook.net/en_US/fbevents.js');\n  // I cambi pagina li manda il tag \"Meta - PageView (cambio pagina)\": niente tracciamento automatico.\n  fbq.disablePushState = true;\n  // Niente eventi automatici sui clic (SubscribedButtonClick)\n  fbq('set', 'autoConfig', false, {{const - Meta Pixel ID}});\n  fbq('init', {{const - Meta Pixel ID}});\n  fbq('track', 'PageView');\n})();\n</script>"
+            "value": "<script>\n(function () {\n  // Una sola PageView per caricamento: questo tag scatta su All Pages (consenso già dato)\n  // oppure quando l'utente accetta il marketing dal banner.\n  if (window.__gabettiPixel) return;\n  window.__gabettiPixel = true;\n  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?\n  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;\n  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;\n  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,\n  document,'script','https://connect.facebook.net/en_US/fbevents.js');\n  // I cambi pagina del sito React li traccia il Pixel da solo (pushState).\n  // NON usare fbq.disablePushState: il Pixel scarterebbe le PageView successive alla prima.\n  // Niente eventi automatici sui clic (SubscribedButtonClick)\n  fbq('set', 'autoConfig', false, {{const - Meta Pixel ID}});\n  fbq('init', {{const - Meta Pixel ID}});\n  fbq('track', 'PageView');\n})();\n</script>"
           },
           {
             "type": "BOOLEAN",
@@ -573,46 +505,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "309",
-        "name": "Meta - PageView (cambio pagina)",
-        "type": "html",
-        "parameter": [
-          {
-            "type": "TEMPLATE",
-            "key": "html",
-            "value": "<script>\n  if (window.fbq && window.__gabettiPixel) fbq('track', 'PageView');\n</script>"
-          },
-          {
-            "type": "BOOLEAN",
-            "key": "supportDocumentWrite",
-            "value": "false"
-          }
-        ],
-        "firingTriggerId": [
-          "211"
-        ],
-        "tagFiringOption": "ONCE_PER_EVENT",
-        "monitoringMetadata": {
-          "type": "MAP"
-        },
-        "fingerprint": "0",
-        "consentSettings": {
-          "consentStatus": "NEEDED",
-          "consentType": {
-            "type": "LIST",
-            "list": [
-              {
-                "type": "TEMPLATE",
-                "value": "ad_storage"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "accountId": "0",
-        "containerId": "0",
-        "tagId": "310",
+        "tagId": "308",
         "name": "Meta - Lead",
         "type": "html",
         "parameter": [
@@ -652,7 +545,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "311",
+        "tagId": "309",
         "name": "Meta - Schedule (prenota visita)",
         "type": "html",
         "parameter": [
@@ -691,7 +584,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "312",
+        "tagId": "310",
         "name": "Meta - SubmitApplication (candidatura)",
         "type": "html",
         "parameter": [
@@ -731,7 +624,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "313",
+        "tagId": "311",
         "name": "Meta - Contact (WhatsApp / telefono)",
         "type": "html",
         "parameter": [
@@ -770,7 +663,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "314",
+        "tagId": "312",
         "name": "Google Ads - Linker conversioni",
         "type": "gclidw",
         "parameter": [
@@ -802,7 +695,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "315",
+        "tagId": "313",
         "name": "Google Ads - Conversione Lead Valutazione",
         "type": "awct",
         "parameter": [
@@ -851,7 +744,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "tagId": "316",
+        "tagId": "314",
         "name": "Google Ads - Conversione Lead Nuove costruzioni",
         "type": "awct",
         "parameter": [
@@ -1238,31 +1131,6 @@
             ]
           }
         ]
-      },
-      {
-        "accountId": "0",
-        "containerId": "0",
-        "triggerId": "211",
-        "name": "Cambio pagina (pushState / popstate)",
-        "type": "HISTORY_CHANGE",
-        "filter": [
-          {
-            "type": "MATCH_REGEX",
-            "parameter": [
-              {
-                "type": "TEMPLATE",
-                "key": "arg0",
-                "value": "{{History Source}}"
-              },
-              {
-                "type": "TEMPLATE",
-                "key": "arg1",
-                "value": "^(pushState|popstate)$"
-              }
-            ]
-          }
-        ],
-        "fingerprint": "0"
       }
     ],
     "variable": [
@@ -1625,21 +1493,6 @@
           }
         ],
         "fingerprint": "0"
-      },
-      {
-        "accountId": "0",
-        "containerId": "0",
-        "variableId": "117",
-        "name": "Page Title",
-        "type": "j",
-        "parameter": [
-          {
-            "type": "TEMPLATE",
-            "key": "name",
-            "value": "document.title"
-          }
-        ],
-        "fingerprint": "0"
       }
     ],
     "builtInVariable": [
@@ -1672,12 +1525,6 @@
         "containerId": "0",
         "type": "REFERRER",
         "name": "Referrer"
-      },
-      {
-        "accountId": "0",
-        "containerId": "0",
-        "type": "HISTORY_SOURCE",
-        "name": "History Source"
       }
     ],
     "fingerprint": "0"

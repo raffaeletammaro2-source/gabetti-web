@@ -53,15 +53,16 @@ chiamare `GabettiTracking.lead({ form_name: "cantiere_<slug>", project: PROGETTO
 
 Cosa c'è dentro:
 - `GA4 - Google tag`: unico tag di configurazione, manda la page_view del primo caricamento passando dal server.
-- `GA4 - page_view (cambio pagina)`: le pagine successive del sito React (pushState / indietro).
+  Le pagine successive del sito React le manda GA4 da solo (misurazione avanzata).
 - Tag evento GA4 per `generate_lead`, `job_application`, clic contatto, `cta_click`, `form_step`.
 - `Meta - Pixel base + PageView`: parte solo con il consenso marketing (`ad_storage`), una volta per caricamento,
   anche nel momento in cui l'utente accetta dal banner. Eventi automatici sui clic disattivati.
+  Le PageView dei cambi pagina le manda il Pixel da solo.
 - `Meta - Lead`, `Schedule`, `SubmitApplication`, `Contact`, con `eventID` = `event_id` del sito.
 - `Google Ads - Linker conversioni` e le due conversioni in pausa.
 
 ## 2. GA4 (proprietà `G-NHHJW2WXSH`)
-- Amministrazione → Stream di dati → Misurazione avanzata → **disattiva** *Modifiche della pagina in base agli eventi della cronologia del browser*. Altrimenti le page_view raddoppiano.
+- Amministrazione → Stream di dati → Misurazione avanzata → lascia **attiva** *Modifiche della pagina in base agli eventi della cronologia del browser*: è lei a contare i cambi pagina del sito React (nel container non c'è un tag per questo).
 - Eventi chiave: `generate_lead` e `job_application`.
 - Dimensioni personalizzate (ambito evento): `form_name`, `lead_category`, `lead_type`, `project`.
 - Raccolta dei dati forniti dall'utente: attiva (serve per le conversioni avanzate).
