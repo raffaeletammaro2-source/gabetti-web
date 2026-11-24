@@ -68,19 +68,66 @@ Cosa c'è dentro:
 - Collega Google Ads e importa **solo** `generate_lead`, se non usi i tag Ads diretti. Mai entrambi per la stessa conversione.
 
 ## 3. Container GTM server (`sgtm.gabetti-adg.it`)
-Svuota i tag ma **tieni il container e il dominio**.
-1. Client: **GA4** (di solito c'è già).
-2. Tag **GA4** → trigger: client = GA4. Inoltra tutto a GA4.
-3. Tag **Meta Conversions API** (dalla Template Gallery: *Facebook Conversion API* di Stape):
-   - Pixel ID `996516643236051` e token di accesso (Events Manager → Impostazioni → Conversions API → Genera token);
-   - Event name setup: *Override*, con questa mappatura:
-     `generate_lead` → `Lead` (oppure `Schedule` se `lead_type` = `visita`), `job_application` → `SubmitApplication`,
-     `click_whatsapp` / `click_phone` → `Contact`;
-   - Event ID: variabile dati evento `event_id`. È la stessa del Pixel, quindi Meta deduplica;
-   - trigger: client = GA4 **e** nome evento corrisponde a `^(generate_lead|job_application|click_whatsapp|click_phone)$`
-     **e** consenso marketing (`x-ga-gcs` contiene `G1?1`, oppure la variabile del consenso di Stape).
-   La PageView non va mandata da server: non ha `event_id` e verrebbe contata due volte.
-4. Test: anteprima del container server più *Test eventi* in Meta Events Manager.
+Prima importa e pubblica il container web (punto 1): è il tag GA4 del web che manda gli eventi al server.
+
+**3.1 Svuotare.** Apri il container server su tagmanager.google.com. In *Tag*: seleziona tutti → *Elimina*.
+In *Attivatori*: elimina quelli creati da voi. In *Client* **tieni** *GA4* (tipo *Google Analytics: GA4 (Web)*);
+se manca: *Nuovo* → *Google Analytics: GA4 (Web)* → salva com'è. Non toccare *Amministrazione → Impostazioni container* (dominio).
+
+**3.2 Variabili.** *Variabili* → *Variabili integrate* → *Configura* → attiva *Event Name* e *Client Name*.
+Poi in *Variabili definite dall'utente* → *Nuova* → *Dati evento*, tre volte:
+
+| Nome variabile | Percorso chiave |
+|---|---|
+| `ed - lead_type` | `lead_type` |
+| `ed - event_id` | `event_id` |
+| `ed - x-ga-gcs` | `x-ga-gcs` |
+
+**3.3 Attivatori.** *Attivatori* → *Nuovo* → tipo *Personalizzato* → *Alcuni eventi*:
+
+| Nome attivatore | Condizioni (tutte vere) |
+|---|---|
+| `GA4 - tutti` | `Client Name` uguale a `GA4` |
+| `Meta - Lead` | `Client Name` uguale a `GA4` · `Event Name` uguale a `generate_lead` · `ed - lead_type` non è uguale a `visita` · `ed - x-ga-gcs` corrisponde a RegEx `^G11` |
+| `Meta - Schedule` | `Client Name` uguale a `GA4` · `Event Name` uguale a `generate_lead` · `ed - lead_type` uguale a `visita` · `ed - x-ga-gcs` corrisponde a RegEx `^G11` |
+| `Meta - SubmitApplication` | `Client Name` uguale a `GA4` · `Event Name` uguale a `job_application` · `ed - x-ga-gcs` corrisponde a RegEx `^G11` |
+| `Meta - Contact` | `Client Name` uguale a `GA4` · `Event Name` corrisponde a RegEx `^(click_whatsapp\|click_phone)$` · `ed - x-ga-gcs` corrisponde a RegEx `^G11` |
+
+`x-ga-gcs` è lo stato del consenso inviato da GA4: `G1` + pubblicità + statistiche (`G111` = tutto accettato,
+`G100` = tutto rifiutato). `^G11` = consenso marketing dato: senza, a Meta non parte niente.
+
+**3.4 Tag GA4.** *Tag* → *Nuovo* → *Google Analytics: GA4* → ID misurazione vuoto (lo prende dall'evento) →
+attivatore `GA4 - tutti` → nome `GA4 - inoltro`.
+
+**3.5 Modello Meta.** *Modelli* → *Modelli di tag* → *Cerca nella galleria* → **Facebook Conversion API** (di *stape-io*) → *Aggiungi all'area di lavoro*.
+
+**3.6 Token Meta.** Events Manager → dataset/pixel `996516643236051` → *Impostazioni* → *Conversions API* →
+*Configura manualmente* / *Genera token di accesso*. Copialo: si vede una volta sola.
+
+**3.7 Tag Meta (4 tag uguali, cambia solo nome evento e attivatore).** *Tag* → *Nuovo* → *Facebook Conversion API*:
+- *Event Name Setup Method*: **Override** · *Event Type*: **Standard** · *Event Name*: **Lead**
+- *Pixel ID*: `996516643236051` · *API Access Token*: il token
+- *Test ID*: per ora il codice di *Test eventi* di Events Manager (lo togli prima di pubblicare)
+- *Action Source*: `website`
+- se c'è una sezione *Consent*: invia solo con consenso marketing
+- *Server Event Data Override* → *Event ID* = `{{ed - event_id}}` (se il campo non c'è, il modello lo prende già da `event_id`)
+- attivatore `Meta - Lead` · nome `Meta CAPI - Lead`
+
+Salva, poi dal menu ⋮ del tag → *Copia* tre volte, cambiando:
+
+| Tag | Event Name | Attivatore |
+|---|---|---|
+| `Meta CAPI - Schedule` | Schedule | `Meta - Schedule` |
+| `Meta CAPI - SubmitApplication` | SubmitApplication | `Meta - SubmitApplication` |
+| `Meta CAPI - Contact` | Contact | `Meta - Contact` |
+
+La PageView non si manda da server: non ha `event_id` e Meta la conterebbe due volte.
+
+**3.8 Prova.** *Anteprima* nel container server e nel container web (stessa scheda). Sul sito: accetta i cookie e clicca WhatsApp.
+- Nell'anteprima server: evento `click_whatsapp` → `GA4 - inoltro` e `Meta CAPI - Contact` *Fired*.
+- In Events Manager → *Test eventi*: `Contact` da **browser** e da **server**, con dicitura *Deduplicato*.
+- Rifiutando i cookie: nessun tag Meta deve partire (solo `GA4 - inoltro`).
+Poi un invio di prova del form valutazione → `Lead` deduplicato. Togli il *Test ID* dai 4 tag e **Pubblica**.
 
 ## 4. Meta Events Manager
 - Dominio `gabetti-adg.it` verificato (meta tag già online).
