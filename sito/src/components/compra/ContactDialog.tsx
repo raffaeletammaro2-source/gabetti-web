@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { trackGenerateLead } from "@/lib/tracking";
+import { splitName, trackLead } from "@/lib/tracking";
 import type { Property } from "@/lib/properties";
 
 const schema = z.object({
@@ -37,7 +37,13 @@ export const ContactForm = ({ property, initialType = "info", onDone }: { proper
     });
     setSending(false);
     if (error) return toast.error("Invio non riuscito, riprova.");
-    trackGenerateLead(type === "visita" ? "compra_prenota_visita" : "compra_richiesta_info");
+    trackLead({
+      form_name: type === "visita" ? "compra_prenota_visita" : "compra_richiesta_info",
+      lead_category: "acquisto",
+      lead_type: type,
+      project: property.id,
+      user: { email: parsed.data.email, phone: parsed.data.phone, ...splitName(parsed.data.name) },
+    });
     toast.success("Richiesta inviata! Ti ricontatteremo a breve.");
     onDone?.();
   };

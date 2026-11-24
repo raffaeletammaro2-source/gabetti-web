@@ -13,6 +13,7 @@ import PropertyCard, { FeatureRow, PriceBlock, PropertyBadges } from "@/componen
 import AcquisitionBanner from "@/components/compra/AcquisitionBanner";
 import { Property, CONDITIONS, ENERGY, TYPES, formatNum, formatPrice, floorLabel, propertyUrl } from "@/lib/properties";
 import { WhatsAppIcon } from "@/components/SocialIcons";
+import { trackPhoneClick, trackWhatsAppClick } from "@/lib/tracking";
 
 const ENERGY_COLORS = ["142 70% 30%", "142 65% 36%", "120 55% 40%", "100 55% 42%", "80 60% 42%", "55 85% 45%", "40 90% 50%", "25 90% 50%", "10 80% 50%", "0 75% 45%"];
 
@@ -174,10 +175,10 @@ const PropertyDetail = () => {
         <aside id="contatta" className="lg:sticky lg:top-4 h-fit rounded-xl border border-[hsl(var(--listing-border))] bg-card p-5">
           <p className="text-sm text-secondary">Annuncio gestito da</p>
           <p className="mb-1 text-lg font-bold">{agency?.name || p.agent_name}</p>
-          {(agency?.phone || p.agent_phone) && <a href={`tel:${(agency?.phone || p.agent_phone)!.replace(/\s/g, "")}`} className="mb-2 flex items-center gap-1 text-sm font-semibold text-primary"><Phone className="h-4 w-4" />{agency?.phone || p.agent_phone}</a>}
+          {(agency?.phone || p.agent_phone) && <a href={`tel:${(agency?.phone || p.agent_phone)!.replace(/\s/g, "")}`} onClick={(e) => trackPhoneClick(e.currentTarget.href)} className="mb-2 flex items-center gap-1 text-sm font-semibold text-primary"><Phone className="h-4 w-4" />{agency?.phone || p.agent_phone}</a>}
           {agency && (
             <div className="mb-4 flex flex-wrap gap-3 text-sm font-semibold text-primary">
-              {agency.whatsapp_url && <a href={agency.whatsapp_url} target="_blank" rel="noopener noreferrer">WhatsApp</a>}
+              {agency.whatsapp_url && <a href={agency.whatsapp_url} onClick={() => trackWhatsAppClick(agency.whatsapp_url!)} target="_blank" rel="noopener noreferrer">WhatsApp</a>}
               {agency.instagram_url && <a href={agency.instagram_url} target="_blank" rel="noopener noreferrer">Instagram</a>}
               {agency.facebook_url && <a href={agency.facebook_url} target="_blank" rel="noopener noreferrer">Facebook</a>}
               {agency.google_url && <a href={agency.google_url} target="_blank" rel="noopener noreferrer">Google</a>}
@@ -197,7 +198,7 @@ const PropertyDetail = () => {
       )}
 
       <div className="fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-border bg-card p-3 lg:hidden">
-        {p.agent_phone && <a href={`tel:${p.agent_phone.replace(/\s/g, "")}`} className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-primary py-3 font-bold text-primary"><Phone className="h-4 w-4" />Chiama</a>}
+        {p.agent_phone && <a href={`tel:${p.agent_phone.replace(/\s/g, "")}`} onClick={(e) => trackPhoneClick(e.currentTarget.href)} className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-primary py-3 font-bold text-primary"><Phone className="h-4 w-4" />Chiama</a>}
         <a href="#contatta" className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary py-3 font-bold text-primary-foreground"><Mail className="h-4 w-4" />Scrivi</a>
       </div>
 

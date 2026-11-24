@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Consenso cookie + Google Tag Manager + eventi: tutto in /shared/tracking.js (va caricato per primo, senza defer) -->
+<script src="/shared/tracking.js"></script>
 <title>Nuove Costruzioni Mugnano di Napoli – Via Pietro Nenni | Gabetti</title>
 <meta name="description" content="Nuovo complesso residenziale in Via Pietro Nenni a Mugnano di Napoli: oltre 120 appartamenti, trilocali da 97 mq e quadrilocali da 115 mq con doppia balconata, ampi spazi verdi e impianti di nuova generazione. Richiedi listino e planimetrie.">
 <meta name="keywords" content="nuove costruzioni Mugnano di Napoli, trilocali Mugnano, quadrilocali Mugnano, case nuove area nord Napoli, Via Pietro Nenni Mugnano, Gabetti Mugnano">
@@ -593,7 +595,7 @@ footer .legal{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-
     </div>
     <div class="legal">
       <span>Nuove Costruzioni · Via Pietro Nenni, Mugnano di Napoli (NA) · Immagini e planimetrie a scopo illustrativo</span>
-      <span>© 2026 Gabetti Franchising — Agenzia di Mugnano · <a href="privacy.html">Informativa Privacy e GDPR</a></span>
+      <span>© 2026 Gabetti Franchising — Agenzia di Mugnano · <a href="privacy.html">Informativa Privacy e GDPR</a> · <a href="/cookie-policy">Cookie Policy</a> · <a href="#" data-cookie-settings>Preferenze cookie</a></span>
     </div>
   </div>
 </footer>
@@ -608,25 +610,12 @@ footer .legal{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-
 /* ===== CONFIGURAZIONE =====
    I contatti vanno alla Netlify Function /.netlify/functions/lead, che li inoltra a GoHighLevel.
    Il webhook di GoHighLevel NON è qui: è nella variabile d'ambiente GHL_WEBHOOK_URL su Netlify.
-   META_PIXEL_ID e GA4_ID: inserire gli ID per attivare il tracciamento (vuoti = disattivato). */
+   Tracciamento: Pixel Meta e GA4 sono gestiti da GTM, caricato da /shared/tracking.js. */
 const LEAD_ENDPOINT = "/.netlify/functions/lead";
 const PROGETTO = "Nuove Costruzioni Mugnano - Via Pietro Nenni";
 const FONTE = "Landing Via Pietro Nenni";
-const META_PIXEL_ID = "";
-const GA4_ID = "";
 const WA_NUMBER = "393512319735";
 const WA_TEXT = "Ciao, vorrei ricevere informazioni sulle nuove costruzioni in Via Pietro Nenni a Mugnano.";
-
-/* Tracciamento: si carica solo se gli ID sono impostati */
-if (META_PIXEL_ID) {
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', META_PIXEL_ID); fbq('track', 'PageView');
-}
-if (GA4_ID) {
-  const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID; document.head.appendChild(s);
-  window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); };
-  gtag('js', new Date()); gtag('config', GA4_ID);
-}
 
 document.querySelectorAll('.wa-link').forEach(a=>{
   a.href = "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(WA_TEXT);
@@ -687,8 +676,13 @@ form.addEventListener('submit', async e=>{
   btn.disabled = false; btn.textContent = "Richiedi informazioni";
 
   if(!ok) return showError("Si è verificato un errore nell'invio. Riprova, chiamaci allo 081 586 7349 o scrivici su WhatsApp.");
-  if(window.fbq) fbq('track','Lead');
-  if(window.gtag) gtag('event','generate_lead');
+  // Conversione: solo dopo la conferma del server (vedi /shared/tracking.js)
+  if (window.GabettiTracking) GabettiTracking.lead({
+    form_name: "cantiere_via-pietro-nenni-mugnano",
+    project: PROGETTO,
+    user: { name: nome, email: email, phone: telefono, city: payload.citta },
+    extra: payload.tipologia ? { tipologia: payload.tipologia } : undefined
+  });
   form.querySelector('.form-body').style.display="none";
   form.querySelector('.thanks').style.display="block";
 });

@@ -2,10 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Building2, Home, Building, Store, HelpCircle, Landmark } from "lucide-react";
 import { sendSiteForm } from "@/lib/forms";
-
-declare global {
-  interface Window { dataLayer: Record<string, unknown>[]; }
-}
+import { trackFormStep } from "@/lib/tracking";
 
 const propertyTypes = [
   { value: "appartamento", label: "Appartamento", icon: Building2 },
@@ -51,8 +48,7 @@ const MultiStepForm = () => {
 
   const next = () => {
     if (!canNext()) return;
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: `form_step_${step}_completed`, form_name: "valutazione_immobile", step });
+    trackFormStep("valutazione_immobile", step);
     setStep((s) => s + 1);
   };
 
