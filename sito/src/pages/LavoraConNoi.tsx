@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { sendSiteForm } from "@/lib/forms";
 import teamImg from "@/assets/lavora-con-noi.jpg";
+import { trackJobApplication } from "@/lib/tracking";
 
 const benefits = [
   { icon: GraduationCap, title: "Formazione continua", text: "Programmi di formazione di livello nazionale per affinare le tue abilità e restare aggiornato sul mercato." },
@@ -62,8 +63,10 @@ const LavoraConNoi = () => {
     });
     setSending(false);
     if (!ok) { setError("Si è verificato un errore. Riprova tra poco."); return; }
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).dataLayer.push({ event: "job_application_submitted", form_name: "lavora_con_noi" });
+    trackJobApplication({
+      event_id: id,
+      user: { email: form.email, phone: form.phone, first_name: firstName, last_name: lastParts.join(" ") },
+    });
     setSent(true);
   };
 

@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Consenso cookie + Google Tag Manager + eventi: tutto in /shared/tracking.js (va caricato per primo, senza defer) -->
+<script src="/shared/tracking.js"></script>
 <title>Nuove Costruzioni Mugnano di Napoli — Condominio Aurora | Gabetti</title>
 <meta name="description" content="Condominio Aurora, Via IV Martiri a Mugnano di Napoli: trilocali nuovi da 98 a 110 mq con box auto e cantinola, da € 259.000. Solo 6 unità disponibili su 8. Consegna Maggio 2027.">
 <meta name="keywords" content="nuove costruzioni Mugnano di Napoli, appartamenti nuovi Mugnano, trilocali Mugnano di Napoli, Condominio Aurora, case nuove area nord Napoli, Gabetti Mugnano">
@@ -462,7 +464,7 @@ footer{background:var(--footer);color:#E9EBEC;padding:3.5rem 0}
     </div>
   </div>
   <div class="wrap copy">
-    <p>© <span id="year">2026</span> Gabetti Franchising — Agenzia di Mugnano. Tutti i diritti riservati. <a href="privacy.html">Informativa Privacy e GDPR</a></p>
+    <p>© <span id="year">2026</span> Gabetti Franchising — Agenzia di Mugnano. Tutti i diritti riservati. <a href="privacy.html">Informativa Privacy e GDPR</a> · <a href="/cookie-policy">Cookie Policy</a> · <a href="#" data-cookie-settings>Preferenze cookie</a></p>
   </div>
 </footer>
 
@@ -476,25 +478,12 @@ footer{background:var(--footer);color:#E9EBEC;padding:3.5rem 0}
 /* ===== CONFIGURAZIONE =====
    I contatti vanno alla Netlify Function /.netlify/functions/lead, che li inoltra a GoHighLevel.
    Il webhook di GoHighLevel NON è qui: è nella variabile d'ambiente GHL_WEBHOOK_URL su Netlify.
-   META_PIXEL_ID e GA4_ID: inserire gli ID per attivare il tracciamento (vuoti = disattivato). */
+   Tracciamento: Pixel Meta e GA4 sono gestiti da GTM, caricato da /shared/tracking.js. */
 const LEAD_ENDPOINT = "/.netlify/functions/lead";
 const PROGETTO = "Condominio Aurora — Mugnano di Napoli";
 const FONTE = "Landing Condominio Aurora";
-const META_PIXEL_ID = "";
-const GA4_ID = "";
 const WA_NUMBER = "393512319735";
 const WA_TEXT = "Buongiorno, vorrei ricevere informazioni su Condominio Aurora";
-
-/* Tracciamento: si carica solo se gli ID sono impostati */
-if (META_PIXEL_ID) {
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', META_PIXEL_ID); fbq('track', 'PageView');
-}
-if (GA4_ID) {
-  const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID; document.head.appendChild(s);
-  window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); };
-  gtag('js', new Date()); gtag('config', GA4_ID);
-}
 
 document.getElementById('year').textContent = new Date().getFullYear();
 document.querySelectorAll('.wa-link').forEach(a => {
@@ -547,8 +536,13 @@ form.addEventListener('submit', async e => {
   btn.disabled = false; btn.textContent = "Richiedi Informazioni";
 
   if (!ok) return showError("Si è verificato un errore nell'invio. Riprova o chiamaci allo 081.586.73.49.");
-  if (window.fbq) fbq('track', 'Lead');
-  if (window.gtag) gtag('event', 'generate_lead');
+  // Conversione: solo dopo la conferma del server (vedi /shared/tracking.js)
+  if (window.GabettiTracking) GabettiTracking.lead({
+    form_name: "cantiere_via-iv-martiri-mugnano",
+    project: PROGETTO,
+    user: { name: nome, email: email, phone: telefono, city: payload.citta },
+    extra: payload.tipologia ? { tipologia: payload.tipologia } : undefined
+  });
   form.style.display = 'none';
   document.getElementById('thanks').style.display = 'block';
 });

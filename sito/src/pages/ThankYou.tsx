@@ -4,87 +4,53 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import SeoHead from "@/components/SeoHead";
-import { getAttribution, getPageContext } from "@/lib/attribution";
-import { hasMarketingConsent } from "@/lib/consent";
-
-
-declare global {
-  interface Window { dataLayer: Record<string, unknown>[]; }
-}
-
-const normalizePhone = (raw: string): string => {
-  const digits = (raw || "").replace(/\D/g, "");
-  if (!digits) return "";
-  if (digits.startsWith("39")) return "+" + digits;
-  if (digits.startsWith("00")) return "+" + digits.slice(2);
-  return "+39" + digits;
-};
+import { getPageContext } from "@/lib/attribution";
+import { trackLead } from "@/lib/tracking";
 
 const ThankYou = () => {
   const name = sessionStorage.getItem("lead_name") || "";
   const zone = sessionStorage.getItem("lead_zone") || "";
 
+  // La conversione "valutazione" parte qui: si arriva su /grazie solo dopo che il server ha confermato l'invio.
   useEffect(() => {
     const eventId = sessionStorage.getItem("lead_event_id");
     const alreadyTracked = sessionStorage.getItem("lead_tracked") === "true";
     if (!eventId || alreadyTracked) return;
 
-    const formName = sessionStorage.getItem("lead_form_name") || "valutazione_immobile";
-    const leadType = sessionStorage.getItem("lead_type") || "form_submit";
-    let leadData: Record<string, string | boolean> = {};
+    let leadData: Record<string, string> = {};
     try {
       leadData = JSON.parse(sessionStorage.getItem("lead_data") || "{}");
     } catch { /* noop */ }
 
-    const marketingOk = hasMarketingConsent();
-    const attribution = getAttribution() || {};
-    const pageCtx = getPageContext();
-
-    // user_data strutturato per Enhanced Conversions / CAPI.
-    // Solo se l'utente ha accettato i cookie marketing.
-    // GTM/GAds hashano automaticamente in SHA-256 se i campi sono in chiaro.
-    const userData = marketingOk ? {
-      email_address: (leadData.email as string)?.trim().toLowerCase(),
-      phone_number: normalizePhone(leadData.phone as string),
-      address: {
-        first_name: (leadData.first_name as string)?.trim().toLowerCase(),
-        last_name: (leadData.last_name as string)?.trim().toLowerCase(),
-        street: (leadData.address as string)?.trim().toLowerCase(),
-        city: (leadData.zone as string)?.trim().toLowerCase(),
-        region: "NA",
-        country: "IT",
-      },
-    } : undefined;
-
-    // Dati form non-PII (sempre safe)
-    const leadProps = {
-      property_type: leadData.property_type,
-      sqm: leadData.sqm,
-      condition: leadData.condition,
-      zone: leadData.zone,
-      timeline: leadData.timeline,
-      experience: leadData.experience,
-    };
-
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "generate_lead",
-      form_name: formName,
-      lead_type: leadType,
-      event_id: eventId,
+    trackLead({
+      form_name: sessionStorage.getItem("lead_form_name") || "valutazione_immobile",
+      lead_category: "vendita",
+      lead_type: sessionStorage.getItem("lead_type") || "form_submit",
       value: 50,
-      currency: "EUR",
-      // Page context
-      ...pageCtx,
-      // Attribution (UTM + click IDs + landing)
-      ...attribution,
-      // Lead properties (non-PII)
-      ...leadProps,
-      // Enhanced Conversions / CAPI user data (solo con consenso marketing)
-      ...(userData ? { user_data: userData } : {}),
+      event_id: eventId,
+      user: {
+        email: leadData.email,
+        phone: leadData.phone,
+        first_name: leadData.first_name,
+        last_name: leadData.last_name,
+        street: leadData.address,
+        city: leadData.zone,
+      },
+      // Dati del modulo senza dati personali
+      extra: {
+        ...getPageContext(),
+        property_type: leadData.property_type,
+        sqm: leadData.sqm,
+        condition: leadData.condition,
+        zone: leadData.zone,
+        timeline: leadData.timeline,
+        experience: leadData.experience,
+      },
     });
 
     sessionStorage.setItem("lead_tracked", "true");
+    // I dati personali non servono più: non li lasciamo nel browser.
+    sessionStorage.removeItem("lead_data");
   }, []);
 
   return (

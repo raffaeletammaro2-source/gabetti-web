@@ -21,21 +21,27 @@
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"RealEstateAgent","@id":"https://gabetti-adg.it/#organization","name":"Gabetti Franchising — Gruppo ADG","url":"https://gabetti-adg.it","areaServed":["Marano di Napoli","Mugnano di Napoli","Giugliano in Campania","Villaricca","Qualiano","Frattamaggiore","Frattaminore","Grumo Nevano","Calvizzano","Sant'Arpino","Sant'Antimo","Afragola","Melito","Chiaiano"],"priceRange":"€€","description":"Rete di agenzie immobiliari Gabetti Franchising del Gruppo ADG, oggi a Marano di Napoli, Mugnano di Napoli, Villaricca-Qualiano, Giugliano in Campania, Frattamaggiore. Valutazione casa gratuita e vendita di immobili per conto dei proprietari, affitti e nuove costruzioni.","brand":{"@type":"Brand","name":"Gabetti"}}
     </script>
-    <!-- Google Consent Mode v2 — DEFAULT (deve precedere GTM) -->
+    <!-- Google Consent Mode v2 — DEFAULT (deve precedere GTM).
+         Se l'utente ha già scelto (cookie_consent_v1, salvato dal banner), il default è già la sua scelta:
+         così i tag del primo caricamento rispettano il consenso senza aspettare React. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
+      var cc = null;
+      try { cc = JSON.parse(localStorage.getItem('cookie_consent_v1')); if (!cc || cc.version !== 1) cc = null; } catch (e) { cc = null; }
+      var mk = cc && cc.marketing ? 'granted' : 'denied';
       gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'analytics_storage': 'denied',
+        'ad_storage': mk,
+        'ad_user_data': mk,
+        'ad_personalization': mk,
+        'analytics_storage': cc && cc.analytics ? 'granted' : 'denied',
         'functionality_storage': 'granted',
+        'personalization_storage': cc && cc.preferences ? 'granted' : 'denied',
         'security_storage': 'granted',
         'wait_for_update': 500
       });
-      gtag('set', 'ads_data_redaction', true);
+      gtag('set', 'ads_data_redaction', mk === 'denied');
       gtag('set', 'url_passthrough', true);
     </script>
     <!-- Google Tag Manager -->
