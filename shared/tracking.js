@@ -150,7 +150,21 @@
     else if (/wa\.me|whatsapp\.com/i.test(href)) push({ event: 'click_whatsapp', click_url: href, page_path: pagePath(), event_id: uuid() });
   }, true);
 
-  // 7. Banner cookie (stessi testi e scelte del banner del sito)
+  // 7. Link interni (#sezione): scorrono senza cambiare l'indirizzo.
+  // Un cambio di #hash nell'URL viene contato dal Pixel Meta come una nuova PageView.
+  // Se la pagina gestisce già il clic (preventDefault), non facciamo niente.
+  document.addEventListener('click', function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    var el = id && document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ block: 'start' }); // rispetta scroll-behavior e scroll-padding-top della pagina
+  });
+
+  // 8. Banner cookie (stessi testi e scelte del banner del sito)
   var CSS = '' +
     '.gcb{position:fixed;left:0;right:0;bottom:0;z-index:2147483000;padding:12px;font-family:Inter,system-ui,sans-serif}' +
     '.gcb-box{max-width:960px;margin:0 auto;background:#fff;color:#1f2937;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:18px 20px;border:1px solid #e5e7eb}' +
