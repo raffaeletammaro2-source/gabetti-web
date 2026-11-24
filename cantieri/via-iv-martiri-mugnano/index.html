@@ -496,7 +496,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
   if (!el) return; e.preventDefault();
   const off = document.querySelector('.gh-sub').offsetHeight + 12;
   window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
-  history.replaceState(null, '', '#' + id);
+  // L'indirizzo non cambia: un #sezione nell'URL verrebbe contato dal Pixel Meta come una nuova pagina
 }));
 
 /* Form contatti */
